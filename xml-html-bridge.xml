@@ -1,0 +1,100 @@
+
+<article xmlns='http://docbook.org/ns/docbook'
+	       xmlns:xl='http://www.w3.org/1999/xlink'
+	       version='5.0' xml:lang='en'>
+  <info>
+    <title>XML and HTML Cross-Pollination: A Bridge Too Far?</title>
+    <!-- <authorlist> -->
+      <author>
+        <personname>Norm Walsh</personname>
+        <email>ndw@nwalsh.com</email>
+        <uri>http://norman.walsh.name/</uri>
+        <personblurb>
+          <para>
+            A very cool guy.
+          </para>
+        </personblurb>
+        <affiliation>
+          <jobtitle>Rock Star</jobtitle>
+          <orgname>MarkLogic</orgname>
+        </affiliation>
+      </author>
+      <author>
+        <personname>Robin Berjon</personname>
+        <email>robin@berjon.com</email>
+        <uri>http://berjon.com/</uri>
+        <personblurb>
+          <para>
+            Robin has spent the better part of this decade working on standards for a variety of Web
+            and XML technologies, mostly within the W3C. He has served as author or editor for more 
+            than a dozen W3C standards, has chaired multiple groups working on XML optimisation and 
+            Web APIs, and has recently been elected to the TAG. He also hacks on Javascript stuff
+            a lot. In his copious spare time he reads, writes, and gets bitten by his cat.
+          </para>
+        </personblurb>
+        <affiliation>
+          <jobtitle>Freelance consultant</jobtitle>
+          <orgname>Robineko</orgname>
+        </affiliation>
+      </author>
+    <!-- </authorlist> -->
+    <keywordset>
+      <keyword>XML</keyword>
+      <keyword>HTML</keyword>
+      <keyword>W3C</keyword>
+    </keywordset>
+
+    <abstract>
+      <!-- 
+        XXX
+          - reuse text that was rejected for inclusion in the document
+          - mention TF
+       -->
+      <para>
+        XXX
+      </para>
+    </abstract>
+  </info>
+
+  <section xml:id='intro'>
+    <title>Introduction</title>
+
+    <para>
+      XXX
+    </para>
+  </section>
+
+  <section xml:id='XXX'>
+    <title>XXX</title>
+
+    <para>
+      XXX
+    </para>
+  </section>
+
+
+  <!-- 
+    LIST (try to organise this a little):
+    * XML + CSS (which mostly works, I think)
+    * XML + CSS + JS (which mostly doesn't, I think)
+    * <?xml-script?>
+    * XLink unsupported
+    * SVG is special cased
+    * A CSS selector-based XPointer scheme (Simon)
+    * XForms?
+    * Accessibility of XML over the wire?
+    * What's missing from CSS to do FO?
+    * JavaScript for page-formatting?
+    * Something about Web Components (fka XBL)?
+    * Can we build XSLT using CSS+JavaScript syntax
+        (What does that mean?)
+    * Are the HTML approaches to distributed extensibility better than
+     those which the XML community designed but never used?
+        (What does that mean?)
+    * Compilation to JavaScript (Saxon CE, Vojtech's XProc GWT project)
+    * CSS Schema
+    * Should SVG be in the HTML namespace and has it suffered from changing its syntax?
+  -->
+
+
+</article>
