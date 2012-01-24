@@ -74,36 +74,161 @@
     </para>
   </section>
 
-  <section xml:id='XXX'>
-    <title>XXX</title>
+  <section xml:id='today'>
+    <title>XML in Today's Browser</title>
+    <para>
+      XXX
+    </para>
+
+    <section xml:id='xml-css'>
+      <title>XML + CSS</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+       (which mostly works, I think)
+      -->
+    </section>
+    <section xml:id='xml-js'>
+      <title>XML + CSS + JS</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+       (which mostly doesn't, I think)
+      * <?xml-script?>
+      * XForms. Is it worth it?
+      -->
+    </section>
+    <section xml:id='links'>
+      <title>What, no links?</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+        XLink unsupported
+      -->
+    </section>
+    <section xml:id='accessibility'>
+      <title>The Accessibility of XML</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+        there isn't one
+        semantics are needed
+        aria and CSS are unlikely to be enough
+      -->
+    </section>
+    <section xml:id='why'>
+      <title>Why bother?</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+        does it really work
+        does it have genuine use cases
+        if so, how do we address them?
+      -->
+    </section>
+  </section>
+
+  <section xml:id='born-xml'>
+    <title>Born in XML, Live in HTML</title>
+    <para>
+      XXX
+    </para>
+
+    <section xml:id='css-xpointer'>
+      <title>XPointer and CSS</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+      A CSS selector-based XPointer scheme (Simon)
+      -->
+    </section>
+    <section xml:id='fo'>
+      <title>Can we replace FO?</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+      What's missing from CSS to do FO? Does it need JS?
+      -->
+    </section>
+    <section xml:id='compile-to-js'>
+      <title>Compilation to JS</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+      Compilation to JavaScript (Saxon CE, Vojtech's XProc GWT project)
+      -->
+    </section>
+    <section xml:id='svg'>
+      <title>How SVG made the jump</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+      Has it suffered from changing its syntax?
+      Should SVG be in the HTML namespace as is now being investigated?
+      -->
+    </section>
+    <section xml:id='web-components'>
+      <title>Web Components</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+      Distributed Extensibility through Web Components
+      (of another kind)
+      did XML really do DE?
+      -->
+    </section>
+    <section xml:id='web-xslt'>
+      <title>Web Transformations</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+      STTS
+      Can we build an XSLT-alike using CSS+JavaScript syntax?
+      -->
+    </section>
+    <section xml:id='css-schema'>
+      <title>CSS Schema</title>
+
+      <para>
+        XXX
+      </para>
+      <!-- 
+      CSS Schema
+      Schematron
+      -->
+    </section>
+  </section>
+
+  <section xml:id='conclusion'>
+    <title>Conclusion</title>
 
     <para>
       XXX
     </para>
+    <!-- 
+    nothing is too crazy
+    -->
   </section>
-
-
-  <!-- 
-    XML in Today's Browser
-    * XML + CSS (which mostly works, I think)
-    * XML + CSS + JS (which mostly doesn't, I think)
-    * <?xml-script?>
-    * XLink unsupported
-    * Accessibility of XML over the wire?
-    * XForms?
-    * Why bother?
-    * Does it work?
-
-
-    Born in XML, Live in HTML
-    * A CSS selector-based XPointer scheme (Simon)
-    * What's missing from CSS to do FO? Does it need JS?
-    * Compilation to JavaScript (Saxon CE, Vojtech's XProc GWT project)
-    * Should SVG be in the HTML namespace? Has it suffered from changing its syntax?
-    * Distributed Extensibility through Web Components
-    * Can we build an XSLT-alike using CSS+JavaScript syntax?
-    * CSS Schema
-  -->
-
-
 </article>
