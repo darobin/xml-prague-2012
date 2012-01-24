@@ -74,26 +74,25 @@
 
 
   <!-- 
-    LIST (try to organise this a little):
+    XML in Today's Browser
     * XML + CSS (which mostly works, I think)
     * XML + CSS + JS (which mostly doesn't, I think)
     * <?xml-script?>
     * XLink unsupported
-    * SVG is special cased
-    * A CSS selector-based XPointer scheme (Simon)
-    * XForms?
     * Accessibility of XML over the wire?
-    * What's missing from CSS to do FO?
-    * JavaScript for page-formatting?
-    * Something about Web Components (fka XBL)?
-    * Can we build XSLT using CSS+JavaScript syntax
-        (What does that mean?)
-    * Are the HTML approaches to distributed extensibility better than
-     those which the XML community designed but never used?
-        (What does that mean?)
+    * XForms?
+    * Why bother?
+    * Does it work?
+
+
+    Born in XML, Live in HTML
+    * A CSS selector-based XPointer scheme (Simon)
+    * What's missing from CSS to do FO? Does it need JS?
     * Compilation to JavaScript (Saxon CE, Vojtech's XProc GWT project)
+    * Should SVG be in the HTML namespace? Has it suffered from changing its syntax?
+    * Distributed Extensibility through Web Components
+    * Can we build an XSLT-alike using CSS+JavaScript syntax?
     * CSS Schema
-    * Should SVG be in the HTML namespace and has it suffered from changing its syntax?
   -->
 
 
