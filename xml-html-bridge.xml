@@ -119,6 +119,7 @@
         XXX
       </para>
       <!-- 
+        RB
         there isn't one
         semantics are needed
         aria and CSS are unlikely to be enough
@@ -171,6 +172,7 @@
         XXX
       </para>
       <!-- 
+      NDW
       Compilation to JavaScript (Saxon CE, Vojtech's XProc GWT project)
       -->
     </section>
@@ -181,6 +183,7 @@
         XXX
       </para>
       <!-- 
+      RB
       Has it suffered from changing its syntax?
       Should SVG be in the HTML namespace as is now being investigated?
       -->
@@ -192,6 +195,7 @@
         XXX
       </para>
       <!-- 
+      RB
       Distributed Extensibility through Web Components
       (of another kind)
       did XML really do DE?
@@ -204,6 +208,7 @@
         XXX
       </para>
       <!-- 
+      RB
       STTS
       Can we build an XSLT-alike using CSS+JavaScript syntax?
       -->
@@ -215,6 +220,7 @@
         XXX
       </para>
       <!-- 
+      RB
       CSS Schema
       Schematron
       -->
