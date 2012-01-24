@@ -45,17 +45,27 @@
     </keywordset>
 
     <abstract>
-      <!-- 
-        XXX
-          - reuse text that was rejected for inclusion in the document
-          - mention TF
-       -->
       <para>
-        XXX
+        W3C created a small Task Force to look at convergence paths
+        between XML and HTML. One of the notions that it discussed was that
+        the two technologies could perhaps not be aligned, but that they could
+        cross-pollinate.
+      </para>
+      <para>
+        This talk will look at ways for this to happen. Can we use CSS
+        Selectors in XPointer? Can we build something like XSLT using
+        CSS + JavaScript and another syntax? Does HTML actually have some interesting
+        approaches to distributed extensibility? Should SVG be in the HTML namespace 
+        and has it suffered from changing its syntax?
       </para>
     </abstract>
   </info>
 
+
+  <!-- 
+    XXX
+      - reuse text that was rejected for inclusion in the document
+   -->
   <section xml:id='intro'>
     <title>Introduction</title>
 
