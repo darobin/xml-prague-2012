@@ -201,17 +201,64 @@
       -->
     </section>
     <section xml:id='web-components'>
-      <title>Web Components</title>
-
+      <title>Distributed Extensibility on the Web</title>
       <para>
-        XXX
+        Much discussion has surrounded a property of “Distributed Extensibility” that XML is supposedly
+        endowed with (by virtue of namespaces) when HTML is not. But is that concern justified?
       </para>
-      <!-- 
-      RB
-      Distributed Extensibility through Web Components
-      (of another kind)
-      did XML really do DE?
-      -->
+      <para>
+        The first thing to note is that saying that XML supports distributed extensibility is not a very
+        useful statement to make. XML is just a syntax, and if you couldn't freely create languages with
+        it it's not clear what it would be useful for. A more precise characterisation is that, given
+        that namespaces can be used to mix vocabularies, XML <emphasis>languages</emphasis> support distributed
+        extensibility. Anyone can grab an XML document that uses a given language, slap an extra namespace
+        declaration, and start injecting attributes and elements from a different language without hurting
+        the first.
+      </para>
+      <para>
+        The ability to extend a language independently of the agent that controls it is a very powerful and 
+        seductive one. However, in order for it to be genuinely useful, you need more than extensibility at
+        the syntactical and semantic level. You also need the same extensibility to be at the very least
+        harmless through most of the processing chain that is applied to the original language.
+      </para>
+      <para>
+        And that's where things start becoming less clear for distributed extensibility in the XML ecosystem.
+        While building a processing tool chain that supports distributed extensibility in XML is technically
+        possible, drove after drove of users have voted with their feet against it. In order to support DE,
+        one would expect a schema language to accept by default namespaces that it is not aware of, yet the
+        most popular choices in this area — XML Schema and RelaxNG — make this difficult. There is very little
+        in the way of tooling support for manipulating trees that may compose multiple namespaces together
+        while easily the ones that are not expected to be present. And in practice, code is rarely written
+        with that expectation in mind. Try throwing in additional namespaced elements into a DOM, SAX, XSLT, etc. processing
+        pipeline and the chances are high that you will see it fail.
+      </para>
+      <para>
+        A number of best practices were initially worked on (in part in order to support versioning) that described
+        useful rules for ignoring content from distributed extensibility, but there was never sufficient
+        interest to finalise them. A technology like NVDL could prove helpful in a DE-enabled tool chain but
+        it is hardly ever used — in fact the vast majority of XML users are likely never to have heard of it.
+        RDDL (and namespace documents in general) which could make DE additionally useful by building discoverability
+        into the system barely elicited sufficient interest to foster a few short-lived proposals.
+      </para>
+      <para>
+        It is therefore fair to say that while distributed extensibility was part of the initial XML vision, in practice
+        it failed to see the light of day.
+      </para>
+      <para>
+        Meanwhile, work has progressed on a promising new HTML-based technology called
+        <link xl:href='http://dvcs.w3.org/hg/webcomponents/raw-file/tip/spec/shadow/index.html'>Web Components</link>.
+        Geared towards interactive documents, it makes it possible to decorate an existing document with
+        any number of “shadow DOMs” that can hang off its elements, and can themselves contain further shadow DOMs
+        recursively. The current work is still in its infancy, but it has roots in previous work called XBL which
+        served a similar purpose in a different fashion.
+      </para>
+      <para>
+        The great value of shadow DOMs is that they make it possible to process independent yet composed document trees
+        without any risk of seeing their processing chains step on one another's toes. It is too early to know if they
+        could be transposed to batch operations easily or if that approach would even be workable in an XML context,
+        but it's a space worth watching. It might just happen that the XML ecosystem could import concepts from
+        Web Components in order to develop its own support for distributed extensibility.
+      </para>
     </section>
     <section xml:id='web-xslt'>
       <title>Web Transformations</title>
