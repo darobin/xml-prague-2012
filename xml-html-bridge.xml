@@ -262,10 +262,34 @@
     </section>
     <section xml:id='web-xslt'>
       <title>Web Transformations</title>
-
       <para>
-        XXX
+        The Javascript community is presently seeing a small cottage industry in the production of templating 
+        languages. In fact, there are days on which one may get the impression that you can't be a proper
+        Javascript developer if you haven't released your own templating language to GitHub.
       </para>
+      <para>
+        String-interpolation templating languages are great when you need to generate HTML from a rather straightforward
+        data structure, but they start to become cumbersome when your input increases in complexity, especially if
+        it's a document itself.
+      </para>
+      <para>
+        For that, XSLT is currently king. But try as you might, getting your typical web hacker to even think about
+        perhaps using it is nigh impossible. Back in 1998, a submission called 
+        <link xl:href='http://www.w3.org/TR/NOTE-STTS3'>STTS</link> was made to the W3C. It used a CSS based declarative
+        language to transform documents (primarily HTML back then), but never met with strong support. Re-evaluating it
+        in today's context, it is interesting to note that it bears some similarities with the now popular 
+        <link xl:href='http://haml-lang.com/'>HAML</link> templating language. That being said, its highly declarative
+        nature is likely to make it only slightly more popular than XSLT with this crowd.
+      </para>
+      <para>
+        Would it be possible to implement a language or library built on the principles that make XSLT a great language
+        but using an approach that would be familiar to Web developers? 
+      </para>
+      Jaspilite
+      <informalexample>
+        <programlisting>
+        </programlisting>
+      </informalexample>
       <!-- 
       RB
       STTS
