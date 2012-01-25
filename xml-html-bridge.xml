@@ -61,16 +61,28 @@
     </abstract>
   </info>
 
-
-  <!-- 
-    XXX
-      - reuse text that was rejected for inclusion in the document
-   -->
   <section xml:id='intro'>
     <title>Introduction</title>
-
     <para>
-      XXX
+      Over a year ago, the W3C put together a small XML-HTML Task Force that was asked to look
+      into the convergence between these two technology families. This paper is derived from the
+      experience of two of the task force's participants in looking at the two ecosystems in order
+      to figure out what they could share.
+    </para>
+    <para>
+      While it appears that complete alignment between the HTML and XML families may not be 
+      achievable (or in fact desirable), there are nevertheless areas in which cross-pollination
+      between those two stacks could help improve either or both. Despite the important design differences
+      that exist between HTML and XML, their goals are not as divided as some of the stormier rhetoric 
+      suggests. There are plenty of areas of common experience despite significant differences in the 
+      details.
+    </para>
+    <para>
+      This paper will therefore navigate a number of cross-over options. Some of these work today
+      but may not be in common use, at times because they could in fact be detrimental, but in a number of
+      cases possibly because they have been overlooked by those who could benefit from them. Other parts
+      may not work because of a technological gap. Yet others may seem no less than utter madness, but 
+      could nevertheless constitute an interesting avenue for exploration.
     </para>
   </section>
 
