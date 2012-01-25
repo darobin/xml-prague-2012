@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875611"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875682"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
         W3C created a small Task Force to look at convergence paths
         between XML and HTML. One of the notions that it discussed was that
         the two technologies could perhaps not be aligned, but that they could
@@ -11,8 +11,24 @@
         CSS + JavaScript and another syntax? Does HTML actually have some interesting
         approaches to distributed extensibility? Should SVG be in the HTML namespace 
         and has it suffered from changing its syntax?
-      </p></div></div></div><hr/></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#intro">Introduction</a></span></dt><dt><span class="section"><a href="#today">XML in Today's Browser</a></span></dt><dd><dl><dt><span class="section"><a href="#xml-css">XML + CSS</a></span></dt><dt><span class="section"><a href="#xml-js">XML + CSS + JS</a></span></dt><dt><span class="section"><a href="#links">What, no links?</a></span></dt><dt><span class="section"><a href="#accessibility">The Accessibility of XML</a></span></dt><dt><span class="section"><a href="#why">Why bother?</a></span></dt></dl></dd><dt><span class="section"><a href="#born-xml">Born in XML, Live in HTML</a></span></dt><dd><dl><dt><span class="section"><a href="#css-xpointer">XPointer and CSS</a></span></dt><dt><span class="section"><a href="#fo">Can we replace FO?</a></span></dt><dt><span class="section"><a href="#compile-to-js">Compilation to JS</a></span></dt><dt><span class="section"><a href="#svg">How SVG made the jump</a></span></dt><dt><span class="section"><a href="#web-components">Web Components</a></span></dt><dt><span class="section"><a href="#web-xslt">Web Transformations</a></span></dt><dt><span class="section"><a href="#css-schema">CSS Schema</a></span></dt></dl></dd><dt><span class="section"><a href="#conclusion">Conclusion</a></span></dt></dl></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="intro"/>Introduction</h2></div></div></div><p>
-      XXX
+      </p></div></div></div><hr/></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#intro">Introduction</a></span></dt><dt><span class="section"><a href="#today">XML in Today's Browser</a></span></dt><dd><dl><dt><span class="section"><a href="#xml-css">XML + CSS</a></span></dt><dt><span class="section"><a href="#xml-js">XML + CSS + JS</a></span></dt><dt><span class="section"><a href="#links">What, no links?</a></span></dt><dt><span class="section"><a href="#accessibility">The Accessibility of XML</a></span></dt><dt><span class="section"><a href="#why">Why bother?</a></span></dt></dl></dd><dt><span class="section"><a href="#born-xml">Born in XML, Live in HTML</a></span></dt><dd><dl><dt><span class="section"><a href="#css-xpointer">XPointer and CSS</a></span></dt><dt><span class="section"><a href="#fo">Can we replace FO?</a></span></dt><dt><span class="section"><a href="#compile-to-js">Compilation to JS</a></span></dt><dt><span class="section"><a href="#svg">How SVG made the jump</a></span></dt><dt><span class="section"><a href="#web-components">Distributed Extensibility on the Web</a></span></dt><dt><span class="section"><a href="#web-xslt">Web Transformations</a></span></dt><dt><span class="section"><a href="#css-schema">CSS Schema</a></span></dt></dl></dd><dt><span class="section"><a href="#conclusion">Conclusion</a></span></dt></dl></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="intro"/>Introduction</h2></div></div></div><p>
+      Over a year ago, the W3C put together a small XML-HTML Task Force that was asked to look
+      into the convergence between these two technology families. This paper is derived from the
+      experience of two of the task force's participants in looking at the two ecosystems in order
+      to figure out what they could share.
+    </p><p>
+      While it appears that complete alignment between the HTML and XML families may not be 
+      achievable (or in fact desirable), there are nevertheless areas in which cross-pollination
+      between those two stacks could help improve either or both. Despite the important design differences
+      that exist between HTML and XML, their goals are not as divided as some of the stormier rhetoric 
+      suggests. There are plenty of areas of common experience despite significant differences in the 
+      details.
+    </p><p>
+      This paper will therefore navigate a number of cross-over options. Some of these work today
+      but may not be in common use, at times because they could in fact be detrimental, but in a number of
+      cases possibly because they have been overlooked by those who could benefit from them. Other parts
+      may not work because of a technological gap. Yet others may seem no less than utter madness, but 
+      could nevertheless constitute an interesting avenue for exploration.
     </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="today"/>XML in Today's Browser</h2></div></div></div><p>
       XXX
     </p><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="xml-css"/>XML + CSS</h3></div></div></div><p>
@@ -35,8 +51,55 @@
         XXX
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="svg"/>How SVG made the jump</h3></div></div></div><p>
         XXX
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="web-components"/>Web Components</h3></div></div></div><p>
-        XXX
+      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="web-components"/>Distributed Extensibility on the Web</h3></div></div></div><p>
+        Much discussion has surrounded a property of “Distributed Extensibility” that XML is supposedly
+        endowed with (by virtue of namespaces) when HTML is not. But is that concern justified?
+      </p><p>
+        The first thing to note is that saying that XML supports distributed extensibility is not a very
+        useful statement to make. XML is just a syntax, and if you couldn't freely create languages with
+        it it's not clear what it would be useful for. A more precise characterisation is that, given
+        that namespaces can be used to mix vocabularies, XML <span class="emphasis"><em>languages</em></span> support distributed
+        extensibility. Anyone can grab an XML document that uses a given language, slap an extra namespace
+        declaration, and start injecting attributes and elements from a different language without hurting
+        the first.
+      </p><p>
+        The ability to extend a language independently of the agent that controls it is a very powerful and 
+        seductive one. However, in order for it to be genuinely useful, you need more than extensibility at
+        the syntactical and semantic level. You also need the same extensibility to be at the very least
+        harmless through most of the processing chain that is applied to the original language.
+      </p><p>
+        And that's where things start becoming less clear for distributed extensibility in the XML ecosystem.
+        While building a processing tool chain that supports distributed extensibility in XML is technically
+        possible, drove after drove of users have voted with their feet against it. In order to support DE,
+        one would expect a schema language to accept by default namespaces that it is not aware of, yet the
+        most popular choices in this area — XML Schema and RelaxNG — make this difficult. There is very little
+        in the way of tooling support for manipulating trees that may compose multiple namespaces together
+        while easily the ones that are not expected to be present. And in practice, code is rarely written
+        with that expectation in mind. Try throwing in additional namespaced elements into a DOM, SAX, XSLT, etc. processing
+        pipeline and the chances are high that you will see it fail.
+      </p><p>
+        A number of best practices were initially worked on (in part in order to support versioning) that described
+        useful rules for ignoring content from distributed extensibility, but there was never sufficient
+        interest to finalise them. A technology like NVDL could prove helpful in a DE-enabled tool chain but
+        it is hardly ever used — in fact the vast majority of XML users are likely never to have heard of it.
+        RDDL (and namespace documents in general) which could make DE additionally useful by building discoverability
+        into the system barely elicited sufficient interest to foster a few short-lived proposals.
+      </p><p>
+        It is therefore fair to say that while distributed extensibility was part of the initial XML vision, in practice
+        it failed to see the light of day.
+      </p><p>
+        Meanwhile, work has progressed on a promising new HTML-based technology called
+        <a class="link" href="http://dvcs.w3.org/hg/webcomponents/raw-file/tip/spec/shadow/index.html" target="">Web Components</a>.
+        Geared towards interactive documents, it makes it possible to decorate an existing document with
+        any number of “shadow DOMs” that can hang off its elements, and can themselves contain further shadow DOMs
+        recursively. The current work is still in its infancy, but it has roots in previous work called XBL which
+        served a similar purpose in a different fashion.
+      </p><p>
+        The great value of shadow DOMs is that they make it possible to process independent yet composed document trees
+        without any risk of seeing their processing chains step on one another's toes. It is too early to know if they
+        could be transposed to batch operations easily or if that approach would even be workable in an XML context,
+        but it's a space worth watching. It might just happen that the XML ecosystem could import concepts from
+        Web Components in order to develop its own support for distributed extensibility.
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="web-xslt"/>Web Transformations</h3></div></div></div><p>
         XXX
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="css-schema"/>CSS Schema</h3></div></div></div><p>
