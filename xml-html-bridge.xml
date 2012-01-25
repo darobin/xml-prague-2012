@@ -283,18 +283,108 @@
       </para>
       <para>
         Would it be possible to implement a language or library built on the principles that make XSLT a great language
-        but using an approach that would be familiar to Web developers? 
+        but using an approach that would be familiar to Web developers? Reimplementing the full feature-set of an
+        XSLT processor is not a minor undertaking, but a decent amount of it can be handled if we have JavaScript
+        handy. Besides, since this is just a thought experiment at this point, we can probably stick to only porting
+        XSLT's core processing model and see how far that gets us. That is a much smaller endeavour, in fact the
+        XSLT processing model is so elegantly short that we can simply reproduce it here from the specification in
+        its unabridged entirety:
       </para>
-      Jaspilite
+      <blockquote>
+        <attribution>XSLT 1.0, James Clark</attribution>
+        <para>
+          A list of source nodes is processed to create a result tree fragment. The result tree is constructed by 
+          processing a list containing just the root node. A list of source nodes is processed by appending the 
+          result tree structure created by processing each of the members of the list in order. A node is processed 
+          by finding all the template rules with patterns that match the node, and choosing the best amongst them; 
+          the chosen rule's template is then instantiated with the node as the current node and with the list of 
+          source nodes as the current node list. A template typically contains instructions that select an additional 
+          list of source nodes for processing. The process of matching, instantiation and selection is continued 
+          recursively until no new source nodes are selected for processing.
+        </para>
+        <para>
+          Implementations are free to process the source document in any way that produces the same result as if it 
+          were processed using this processing model.
+        </para>
+      </blockquote>
+      <para>
+        That doesn't solve all of our problems of course, but it's a start. Based on this we could imagine some form
+        of JSLT code that might look like the following if we wanted to transform a simple DocBook document to 
+        HTML.
+      </para>
       <informalexample>
-        <programlisting>
-        </programlisting>
+        <programlisting><![CDATA[
+          var sheet = require("jaspilite").sheet()
+          ,   $     = require("jquery")
+          ,   XL    = "http://www.w3.org/1999/xlink"
+          ;
+          sheet.xmlns({
+              "":   "http://docbook.org/ns/docbook"
+          ,   "xl": XL
+          });
+          sheet.template(":root > article", function () {
+              var title = $(this).find("info > title").text();
+              return $("<html><head><title></title></head><body><h1></h1><content/></body></html>")
+                        .find("title").text(title).end()
+                        .find("h1").text(title).end()
+                        .find("content").replaceWith($(this).apply());
+          });
+          sheet.template("info", function () {});
+          sheet.template("section", function () {
+              return $(this).apply().wrapIn("<section></section>");
+          });
+          sheet.template("title", function () {
+              var depth = $(this).parents("section").length;
+              if (depth < 1) return;
+              depth++;
+              if (depth > 6) depth = 6;
+              return $(this).apply().wrapIn(sheet.createElement("h" + depth));
+          });
+          sheet.template("para", function () {
+              return $(this).apply().wrapIn("<p></p>");
+          });
+          sheet.template("emphasis", function () {
+              return $(this).apply().wrapIn("<em></em>");
+          });
+          sheet.template("link[xl|href]", function () {
+              var $link = $(this);
+              return $link.apply().wrapIn("<a></a>").attr("href", $link[0].getAttributeNS(XL, "href"));
+          });
+          var $out = sheet.run("my-document.dkb");
+          console.log($out.html());
+        ]]></programlisting>
       </informalexample>
-      <!-- 
-      RB
-      STTS
-      Can we build an XSLT-alike using CSS+JavaScript syntax?
-      -->
+      <para>
+        There are naturally some issues with the above code, but as a transformation sheet it is usable
+        and ought to seem roughly familiar to JS developers in large part thanks to its reliance on jQuery.
+        The first problem is namespaces: jQuery (and its underlying CSS engine, Sizzle) is not natively
+        aware of namespaces. This can be worked around using a plugin, but it still shows when one tries
+        to access a namespaced attribute. That being said, one thing that may not be readily obvious
+        when used to XPath is that all of the CSS Selectors above use the DocBook namespace properly since
+        unlike XPath CSS Selectors can have a default declaration applied to them.
+      </para>
+      <para>
+        Another issue is with injecting variables and finding a substitute for <code>apply-templates</code>
+        in the output tree. As can be seen in the first template, the way in which that is done is by first
+        creating the output structure, and then addressing some of its part to inject a value or replace
+        a dummy element. That may seem cumbersome, but jQuery makes it mercifully short. What's more, as
+        can be seen in the other templates, all that's needed if one wishes to merely wrap the 
+        <code>apply-templates</code> in an element is to use the <code>wrapIn()</code> method which will
+        simply do the right thing.
+      </para>
+      <para>
+        Finally, the most likely limitation with this approach has to do with just how limited CSS Selectors
+        are. For a trivial example they'll shine, but try so much as to find a text node and you'll hit a
+        wall. This could be fixed either by inventing new selectors (which is not necessarily difficult
+        since jQuery is very extensible in this area) or by making it possible to use XPath in the same
+        context. The latter might be a workable option as a more power alternative that one can reach for
+        when needed.
+      </para>
+      <para>
+        Of course this is just a thought experiment and it is likely to have many more failings. There is no
+        doubt that the crafty minds of XSLT experts will be able to find many an XSLT construct that could be
+        difficult to reproduce here. That said, crazier ideas have become popular.
+      </para>
     </section>
     <section xml:id='css-schema'>
       <title>CSS Schema</title>
