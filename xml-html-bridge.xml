@@ -298,13 +298,26 @@ Laurent</surname></personname>
     </section>
     <section xml:id='fo'>
       <title>Can we replace FO?</title>
-
       <para>
-        XXX
+        At least in some environments, CSS has made good progress in its support for print-related styles.
+        Unfortunately, we don't yet seem to have reached the point where formats like PDF can fully be
+        replaced on the Web.
       </para>
-      <!-- 
-      What's missing from CSS to do FO? Does it need JS?
-      -->
+      <para>
+        A good source of gaps in the current HTML+CSS ecosystem could therefore be FO. The pdf.js project
+        has shown that it is possible to parse and render PDF using only Web technologies. The time therefore
+        seems ripe to try to do the same thing with FO.
+      </para>
+      <para>
+        Using such an approach it may be that we will be able to use FO directly in the browser, which at least
+        could help solve PDF's many issues such as the difficulty in generating it easily, its various text-selection
+        problems, and at least some of its more endemic accessibility problems (through judicious application of HTML
+        and ARIA).
+      </para>
+      <para>
+        More likely though it could highlight both some priorities in the evolution of CSS, and the value that there
+        could be for implementers to support them in order to progressively phase out PDF.
+      </para>
     </section>
     <section xml:id='compile-to-js'>
       <title>Compilation to JS</title>
@@ -623,8 +636,5 @@ virtue (or lack thereof) of extensible vocabularies. From this distance, the com
 
 <para>Surely, the reality is somewhere in between and there are opportunities to learn, share, harmonize, and
 diverge and join, for everyone.</para>
-    <!-- 
-    nothing is too crazy
-    -->
   </section>
 </article>
