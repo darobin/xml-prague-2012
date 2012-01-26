@@ -419,15 +419,70 @@
     </section>
     <section xml:id='css-schema'>
       <title>CSS Schema</title>
-
       <para>
-        XXX
+        The XML ecosystem is big on validation, so big in fact that drinking games involving reciting long lists
+        of validation technologies had to be banned after too many xml-dev subscribers were found suffering of
+        delirium tremens.
       </para>
-      <!-- 
-      RB
-      CSS Schema
-      Schematron
-      -->
+      <para>
+        On the HTML side however, there is not that much to be found. There are, naturally, a number of HTML
+        validators out there, but they tend not to be easily extensible for the sort of context-specific
+        rules that one may wish to overlay on HTML. JSON Schema is being worked on, but it applies only to JSON
+        documents.
+      </para>
+      <para>
+        Naturally, a lot of the XML validation toolkit can be applied to HTML documents with some relatively
+        manageable amount of shoe-horning. But most of it at best uses moving parts that are unfamiliar to most
+        Web developers, and at worst is used as the boogeyman with which young web hackers are kept in check.
+      </para>
+      <para>
+        In the spirit of reusing good ideas across the cultural gap, one schema language that lends itself well
+        both to the common validation problems in an HTML context (which are mostly validation overlaid atop
+        HTML itself) and to concepts that can be translated with some degree of ease is Schematron.
+      </para>
+      <para>
+        Taking the basic notions of rules and assertions, we could imagine (again, as a thought experiment)
+        a CSS Schema language that could look like the following:
+      </para>
+      <informalexample>
+        <programlisting><![CDATA[
+          @rule head {
+              title {
+                  assert:  "Page does not have a title.";
+              }
+              link[rel="stylesheet"][type="text/css"][href="std.css"] {
+                  assert:  "Page does not use the standard stylesheet.";
+              }
+              style {
+                  report:  "Page uses inline style rather than linking.";
+              }
+          }
+          @rule body {
+              :scope.std-body {
+                  assert:   "Page does not use the standard body class.";
+              }
+              :scope > div.std-top {
+                  assert:   "Page does not start with the required page top component.";
+              }
+          }
+        ]]></programlisting>
+      </informalexample>
+      <para>
+        The above is syntactically valid CSS that merely adds an <code>@rule</code> block and new properties
+        called <code>assert</code> and <code>report</code> that all correspond to the same constructs in Schematron.
+        Selectors are used in the same manner that XPath is. Of note is the <code>:scope</code> selector which
+        can be used to select the current scope, matching the default context that XPath can use.
+      </para>
+      <para>
+        This can be used equally well offline or in a browser. One addition that could be interesting would be 
+        simply to specify regular style properties (e.g. <code>background: red;</code>) to the assertions so
+        that when running in the browser the failure of an assertion would cause the style to be applied, making
+        for nice visual feedback.
+      </para>
+      <para>
+        And since CSS can be applied interactively, this could notably be used in order to provide visual feedback
+        inside browser-based document-editing systems.
+      </para>
     </section>
   </section>
 

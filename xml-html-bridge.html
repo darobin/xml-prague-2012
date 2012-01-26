@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875822"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875891"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
         W3C created a small Task Force to look at convergence paths
         between XML and HTML. One of the notions that it discussed was that
         the two technologies could perhaps not be aligned, but that they could
@@ -241,7 +241,58 @@
         doubt that the crafty minds of XSLT experts will be able to find many an XSLT construct that could be
         difficult to reproduce here. That said, crazier ideas have become popular.
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="css-schema"/>CSS Schema</h3></div></div></div><p>
-        XXX
+        The XML ecosystem is big on validation, so big in fact that drinking games involving reciting long lists
+        of validation technologies had to be banned after too many xml-dev subscribers were found suffering of
+        delirium tremens.
+      </p><p>
+        On the HTML side however, there is not that much to be found. There are, naturally, a number of HTML
+        validators out there, but they tend not to be easily extensible for the sort of context-specific
+        rules that one may wish to overlay on HTML. JSON Schema is being worked on, but it applies only to JSON
+        documents.
+      </p><p>
+        Naturally, a lot of the XML validation toolkit can be applied to HTML documents with some relatively
+        manageable amount of shoe-horning. But most of it at best uses moving parts that are unfamiliar to most
+        Web developers, and at worst is used as the boogeyman with which young web hackers are kept in check.
+      </p><p>
+        In the spirit of reusing good ideas across the cultural gap, one schema language that lends itself well
+        both to the common validation problems in an HTML context (which are mostly validation overlaid atop
+        HTML itself) and to concepts that can be translated with some degree of ease is Schematron.
+      </p><p>
+        Taking the basic notions of rules and assertions, we could imagine (again, as a thought experiment)
+        a CSS Schema language that could look like the following:
+      </p><div class="informalexample"><pre class="programlisting">
+          @rule head {
+              title {
+                  assert:  "Page does not have a title.";
+              }
+              link[rel="stylesheet"][type="text/css"][href="std.css"] {
+                  assert:  "Page does not use the standard stylesheet.";
+              }
+              style {
+                  report:  "Page uses inline style rather than linking.";
+              }
+          }
+          @rule body {
+              :scope.std-body {
+                  assert:   "Page does not use the standard body class.";
+              }
+              :scope &gt; div.std-top {
+                  assert:   "Page does not start with the required page top component.";
+              }
+          }
+        </pre></div><p>
+        The above is syntactically valid CSS that merely adds an <code class="code">@rule</code> block and new properties
+        called <code class="code">assert</code> and <code class="code">report</code> that all correspond to the same constructs in Schematron.
+        Selectors are used in the same manner that XPath is. Of note is the <code class="code">:scope</code> selector which
+        can be used to select the current scope, matching the default context that XPath can use.
+      </p><p>
+        This can be used equally well offline or in a browser. One addition that could be interesting would be 
+        simply to specify regular style properties (e.g. <code class="code">background: red;</code>) to the assertions so
+        that when running in the browser the failure of an assertion would cause the style to be applied, making
+        for nice visual feedback.
+      </p><p>
+        And since CSS can be applied interactively, this could notably be used in order to provide visual feedback
+        inside browser-based document-editing systems.
       </p></div></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="conclusion"/>Conclusion</h2></div></div></div><p>
       XXX
     </p></div></div></body></html>
