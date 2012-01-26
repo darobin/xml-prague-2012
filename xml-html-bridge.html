@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875791"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875822"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
         W3C created a small Task Force to look at convergence paths
         between XML and HTML. One of the notions that it discussed was that
         the two technologies could perhaps not be aligned, but that they could
@@ -50,7 +50,41 @@
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="compile-to-js"/>Compilation to JS</h3></div></div></div><p>
         XXX
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="svg"/>How SVG made the jump</h3></div></div></div><p>
-        XXX
+        SVG was born and raised an XML language. It has its own namespace fully defined with a proper
+        namespace document. It has a RelaxNG as well as an NVDL schema; in fact at one point or another
+        it has even had a DTD and an XML Schema. It uses XLink, and version 1.2 even adopted <code class="code">xml:id</code>.
+        Over the years it has routinely been both consumed and produced using XSLT and XPath; for a while
+        there even was a project to add “<span class="quote">SVG Extensions to XPath</span>” in order to process its geometry
+        better.
+      </p><p>
+        This is interesting because it is not all that common for graphics people to care, or even know much 
+        about, XML. A large part of the reason for it to use XML in the first place was because it was intended
+        to be embedded straight into XHTML, or of course any other XML language that could use some pretty
+        shapes.
+      </p><p>
+        But with XHTML pining for the fjords, the question of what to do with SVG became rather acute. Browsers
+        already largely supported it, so that there was little point in dropping it entirely. Besides, there
+        was no proposed replacement and starting from scratch would have taken too long. The decision was
+        therefore made to find a way to integrate it with HTML.
+      </p><p>
+        By and large, given that several of the important integration factors had already been figured out
+        for XHTML integration and did not need to be updated, considering the size and complexity of SVG
+        this turned out to be a lot easier than one may expect. However, the matter of syntax remained a problem.
+        Keeping the XML syntax created trouble at the HTML parsing level since one would have to switch parsers.
+        What's more, embedding different syntaxes that are mostly the same but also subtly different inside
+        one another is hardly the friendly thing to do to developers. After some intense debate, the decision
+        was made to accept the transition of SVG to the HTML syntax, along with other niceties like automatic
+        namespacing.
+      </p><p>
+        A number of participants in this discussion predicted trouble from this switch, notably due to cut and
+        paste errors. In practice, now several years after the switch took place, very few complaints have been
+        heard. On the contrary, the merged syntax has made it easier to better support SVG on the Web, and SVG
+        is increasingly becoming mainstream thanks to that and the common usage of libraries that make use
+        of this facility such as Raphaël. In fact it is such a success that the SVG WG is considering dropping
+        SVG's own namespace entirely and automatically coercing it all into the HTML namespace, one way or another.
+      </p><p>
+        An interesting open question here is whether there are other languages that could be given the same
+        treatment.
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="web-components"/>Distributed Extensibility on the Web</h3></div></div></div><p>
         Much discussion has surrounded a property of “Distributed Extensibility” that XML is supposedly
         endowed with (by virtue of namespaces) when HTML is not. But is that concern justified?

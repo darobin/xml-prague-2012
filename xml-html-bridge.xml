@@ -60,7 +60,6 @@
       </para>
     </abstract>
   </info>
-
   <section xml:id='intro'>
     <title>Introduction</title>
     <para>
@@ -85,7 +84,6 @@
       could nevertheless constitute an interesting avenue for exploration.
     </para>
   </section>
-
   <section xml:id='today'>
     <title>XML in Today's Browser</title>
     <para>
@@ -190,15 +188,48 @@
     </section>
     <section xml:id='svg'>
       <title>How SVG made the jump</title>
-
       <para>
-        XXX
+        SVG was born and raised an XML language. It has its own namespace fully defined with a proper
+        namespace document. It has a RelaxNG as well as an NVDL schema; in fact at one point or another
+        it has even had a DTD and an XML Schema. It uses XLink, and version 1.2 even adopted <code>xml:id</code>.
+        Over the years it has routinely been both consumed and produced using XSLT and XPath; for a while
+        there even was a project to add <quote>SVG Extensions to XPath</quote> in order to process its geometry
+        better.
       </para>
-      <!-- 
-      RB
-      Has it suffered from changing its syntax?
-      Should SVG be in the HTML namespace as is now being investigated?
-      -->
+      <para>
+        This is interesting because it is not all that common for graphics people to care, or even know much 
+        about, XML. A large part of the reason for it to use XML in the first place was because it was intended
+        to be embedded straight into XHTML, or of course any other XML language that could use some pretty
+        shapes.
+      </para>
+      <para>
+        But with XHTML pining for the fjords, the question of what to do with SVG became rather acute. Browsers
+        already largely supported it, so that there was little point in dropping it entirely. Besides, there
+        was no proposed replacement and starting from scratch would have taken too long. The decision was
+        therefore made to find a way to integrate it with HTML.
+      </para>
+      <para>
+        By and large, given that several of the important integration factors had already been figured out
+        for XHTML integration and did not need to be updated, considering the size and complexity of SVG
+        this turned out to be a lot easier than one may expect. However, the matter of syntax remained a problem.
+        Keeping the XML syntax created trouble at the HTML parsing level since one would have to switch parsers.
+        What's more, embedding different syntaxes that are mostly the same but also subtly different inside
+        one another is hardly the friendly thing to do to developers. After some intense debate, the decision
+        was made to accept the transition of SVG to the HTML syntax, along with other niceties like automatic
+        namespacing.
+      </para>
+      <para>
+        A number of participants in this discussion predicted trouble from this switch, notably due to cut and
+        paste errors. In practice, now several years after the switch took place, very few complaints have been
+        heard. On the contrary, the merged syntax has made it easier to better support SVG on the Web, and SVG
+        is increasingly becoming mainstream thanks to that and the common usage of libraries that make use
+        of this facility such as Raphaël. In fact it is such a success that the SVG WG is considering dropping
+        SVG's own namespace entirely and automatically coercing it all into the HTML namespace, one way or another.
+      </para>
+      <para>
+        An interesting open question here is whether there are other languages that could be given the same
+        treatment.
+      </para>
     </section>
     <section xml:id='web-components'>
       <title>Distributed Extensibility on the Web</title>
