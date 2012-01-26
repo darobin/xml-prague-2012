@@ -1,22 +1,24 @@
-
 <article xmlns='http://docbook.org/ns/docbook'
-	       xmlns:xl='http://www.w3.org/1999/xlink'
-	       version='5.0' xml:lang='en'>
+         xmlns:xl='http://www.w3.org/1999/xlink'
+         version='5.0' xml:lang='en'>
   <info>
     <title>XML and HTML Cross-Pollination: A Bridge Too Far?</title>
-    <!-- <authorlist> -->
+    <authorgroup>
       <author>
-        <personname>Norm Walsh</personname>
-        <email>ndw@nwalsh.com</email>
-        <uri>http://norman.walsh.name/</uri>
+        <personname>Norman Walsh</personname>
+        <email>norman.walsh@marklogic.com</email>
+        <uri>http://nwalsh.com/</uri>
         <personblurb>
-          <para>
-            A very cool guy.
-          </para>
+<para>Norman Walsh is a Lead Engineer at MarkLogic Corporation where
+he works with the Application Services team. Norm is also an active
+participant in a number of standards efforts worldwide: he is chair of
+the XML Processing Model Working Group at the W3C where he is also
+co-chair of the XML Core Working Group. At OASIS, he is chair of the
+DocBook Technical Committee.</para>
         </personblurb>
         <affiliation>
-          <jobtitle>Rock Star</jobtitle>
-          <orgname>MarkLogic</orgname>
+          <jobtitle>Lead Engineer</jobtitle>
+          <orgname>MarkLogic Corporation</orgname>
         </affiliation>
       </author>
       <author>
@@ -25,11 +27,14 @@
         <uri>http://berjon.com/</uri>
         <personblurb>
           <para>
-            Robin has spent the better part of this decade working on standards for a variety of Web
-            and XML technologies, mostly within the W3C. He has served as author or editor for more 
-            than a dozen W3C standards, has chaired multiple groups working on XML optimisation and 
-            Web APIs, and has recently been elected to the TAG. He also hacks on Javascript stuff
-            a lot. In his copious spare time he reads, writes, and gets bitten by his cat.
+            Robin has spent the better part of this decade working on
+            standards for a variety of Web and XML technologies,
+            mostly within the W3C. He has served as author or editor
+            for more than a dozen W3C standards, has chaired multiple
+            groups working on XML optimisation and Web APIs, and has
+            recently been elected to the TAG. He also hacks on
+            Javascript stuff a lot. In his copious spare time he
+            reads, writes, and gets bitten by his cat.
           </para>
         </personblurb>
         <affiliation>
@@ -37,7 +42,7 @@
           <orgname>Robineko</orgname>
         </affiliation>
       </author>
-    <!-- </authorlist> -->
+    </authorgroup>
     <keywordset>
       <keyword>XML</keyword>
       <keyword>HTML</keyword>
@@ -107,10 +112,36 @@
         straightforward. CSS can be applied to an XML document using an <code>xml-stylesheet</code> processing
         instruction.
       </para>
+
+      <para>For example:</para>
+
+      <programlisting><![CDATA[<?xml-stylesheet href="xmltest.css"?>
+<doc>
+<title>Title</title>
+<para xml:id="test">Testing.</para>
+</doc>]]></programlisting>
+
+      <para>Where <filename>xmltest.css</filename> contains:</para>
+
+<programlisting><![CDATA[doc {
+    display: block;
+}
+
+title {
+    display: block;
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+para {
+    display:block
+    margin-before: 1em;
+}]]></programlisting>
+
       <para>
-        Inlined images are slightly trickier than the rest, but it is possible to address that issue with a combination
+        Inlined images are slightly trickier than the rest, but it is at least theoretically possible to address that issue with a combination
         of several <code>background</code> properties and the <code>attr()</code> function which can reuse the value of
-        an attribute inside a CSS property.
+        an attribute inside a CSS property. (Though this does not appear to be supported today.)
       </para>
       <para>
         Of course, once you've styled your document there isn't much that you can do with it beyond read it. In a number
@@ -124,10 +155,27 @@
       </para>
       <para>
         There is no equivalent to <code>xml-stylesheet</code> for scripting, but a <code>script</code> element in the
-        XHTML namespace will do the trick. If using XML documents in this fashion were to become more widespread,
+        XHTML namespace will do the trick:</para>
+
+      <programlisting>&lt;?xml-stylesheet href="xmltest.css"?>
+&lt;doc>
+&lt;title>Title&lt;/title>
+&lt;para xml:id="test">Testing.&lt;/para>
+
+&lt;script xmlns="http://www.w3.org/1999/xhtml">
+//&lt;![CDATA[
+var text = document.createTextNode("Script testing");
+var para = document.getElementsByTagName("para")[0];
+para.removeChild(para.firstChild)
+para.appendChild(text);
+//]]&gt;&lt;/script>
+&lt;/doc></programlisting>
+
+<para>If using XML documents in this fashion were to become more widespread,
         the idea of am <code>xml-script</code> processing instruction might become interesting (it should not prove
         difficult to specify).
       </para>
+
       <para>
         Once this is set up, most of the moving parts ought to be functional. Since the DOM is properly live, just
         like any HTML DOM, modifications to the tree will have the effect on the rendering that you would expect.
@@ -136,6 +184,9 @@
         to a given interface), a number of tasks may prove more complex (and common libraries may stumble on some
         cases).
       </para>
+
+<para>Support for <tag class="attribute">xml:id</tag> attributes in particular would make locating elements in
+the XML DOM easier.</para>
     </section>
     <section xml:id='links'>
       <title>What, no links?</title>
@@ -145,27 +196,23 @@
         be emulated. For a DocBook document for instance, we would have the following CSS:
       </para>
       <informalexample>
-        <programlisting><![CDATA[
-          @namespace "http://docbook.org/ns/docbook";
-          @namespace xl "http://www.w3.org/1999/xlink";
-          link[xl|href] {
-              cursor: hand;
-              color:  #00c;
-              text-decoration: underline;
-          }
-        ]]></programlisting>
+        <programlisting><![CDATA[@namespace "http://docbook.org/ns/docbook";
+@namespace xl "http://www.w3.org/1999/xlink";
+link[xl|href] {
+    cursor: hand;
+    color:  #00c;
+    text-decoration: underline;
+}]]></programlisting>
       </informalexample>
       <para>
         And navigation would work using Javascript (assuming jQuery and its xmlns plugin):
       </para>
       <informalexample>
-        <programlisting><![CDATA[
-            $.xmlns("http://docbook.org/ns/docbook");
-            $.xmlns("xl", "http://www.w3.org/1999/xlink");
-            $("article").on("click", "link[xl|link]", function () {
-                document.location = $(this)[0].getAttributeNS("http://www.w3.org/1999/xlink", "href");
-            });
-        ]]></programlisting>
+        <programlisting><![CDATA[$.xmlns("http://docbook.org/ns/docbook");
+$.xmlns("xl", "http://www.w3.org/1999/xlink");
+$("article").on("click", "link[xl|link]", function () {
+    document.location = $(this)[0].getAttributeNS("http://www.w3.org/1999/xlink", "href");
+});]]></programlisting>
       </informalexample>
       <para>
         While this works, it is hardly the best for all link-based navigation to be handled in script.
@@ -178,9 +225,15 @@
     <section xml:id='accessibility'>
       <title>The Accessibility of XML</title>
 
-      <para>
-        XXX
-      </para>
+<para>Theoretically, accessibility of XML should be at least as good, perhaps better than HTML because
+the opportunity exists for expressing richer semantics in the document. In practice, this is utterly
+wrong. Had XML become widespread on the web, languages for mapping accessibility onto XML documents could
+have been developed. Since it didn't, they weren't and the result is that HTML documents have much greater
+accessibility because so much is known in advance about the semantics of the elements.</para>
+
+<para>Perhaps ARIA and CSS would provide a framework for building some accessibility into XML on the web,
+but it's not likely to be sufficient for the more complex cases.</para>
+
       <!-- 
         RB
         there isn't one
@@ -191,9 +244,24 @@
     <section xml:id='why'>
       <title>Why bother?</title>
 
-      <para>
-        XXX
-      </para>
+<para>You probably shouldn't. If you subscribe to the many worlds
+interpretation of quantum mechanics, you may be able to imagine worlds
+where support for XML on the web is widespread and robust. In those
+universes, deploying XML documents on the web, transforming, styling,
+and scripting them is as easy and straightforward as deploying HTML
+documents in our universe. But we don't live there.</para>
+
+<para>In this universe, the benefits from deploying XML on the web are
+probably limited to closed environments where it's convenient to think
+of the documents that will be deployed on the web as being equally
+useful for additional processing inside the environment. Extracting
+linked data, performing entity enrichment, etc. using existing XML
+technologies on top of the web documents may have real value.</para>
+
+<para>But actual deployment is probably limited to XML documents that happen
+to also be HTML documents or that generate the HTML DOM you expect when parsed
+with an HTML parser.</para>
+
       <!-- 
         does it really work
         does it have genuine use cases
@@ -206,19 +274,27 @@
 
   <section xml:id='born-xml'>
     <title>Born in XML, Live in HTML</title>
-    <para>
-      XXX
+
+    <para>There are a great many technologies developed for XML that could (and do!) apply equally well
+to HTML. If you move beyond the question of syntax to the level of an object model, an XML tree and
+an HTML tree are even closer together than documents written in their respective syntaxes.
     </para>
+
+    <para>It would be nice to be able to use them when they offer the easiest way forward.</para>
 
     <section xml:id='css-xpointer'>
       <title>XPointer and CSS</title>
 
-      <para>
-        XXX
-      </para>
-      <!-- 
-      A CSS selector-based XPointer scheme (Simon)
-      -->
+      <para>XPointer and CSS both describe mechanisms for selecting regions of a document. In fact, XPointer is
+really a framework for such mechanisms. An XPointer implementation that understood a “CSS scheme” would allow
+authors to reuse expressions across styling and selection.</para>
+
+<para>See, for example, <link xl:href="http://simonstl.com/articles/cssFragID.html">Using CSS
+Selectors as Fragment Identifiers</link> by
+<personname><firstname>Simon</firstname><surname>St.
+Laurent</surname></personname>
+<personname><firstname>Eric</firstname><surname>Meyer</surname></personname>.</para>
+
     </section>
     <section xml:id='fo'>
       <title>Can we replace FO?</title>
@@ -233,13 +309,12 @@
     <section xml:id='compile-to-js'>
       <title>Compilation to JS</title>
 
-      <para>
-        XXX
-      </para>
-      <!-- 
-      NDW
-      Compilation to JavaScript (Saxon CE, Vojtech's XProc GWT project)
-      -->
+<para>Another approach is simply to bring those tools directly into the browser. We've seen clear demonstrations
+of substantial success in these areas in the work of
+<link xl:href="http://saxonica.com/">Saxonica</link>’s on “Saxon Client Edition” and
+<personname><firstname>Vojtěch</firstname><surname>Toman</surname></personname> on
+<link xl:href="http://www.balisage.net/Proceedings/vol5/html/Toman01/BalisageVol5-Toman01.html">XML Pipeline Processing
+in the Browser</link>.</para>
     </section>
     <section xml:id='svg'>
       <title>How SVG made the jump</title>
@@ -399,46 +474,44 @@
         HTML.
       </para>
       <informalexample>
-        <programlisting><![CDATA[
-          var sheet = require("jaspilite").sheet()
-          ,   $     = require("jquery")
-          ,   XL    = "http://www.w3.org/1999/xlink"
-          ;
-          sheet.xmlns({
-              "":   "http://docbook.org/ns/docbook"
-          ,   "xl": XL
-          });
-          sheet.template(":root > article", function () {
-              var title = $(this).find("info > title").text();
-              return $("<html><head><title></title></head><body><h1></h1><content/></body></html>")
-                        .find("title").text(title).end()
-                        .find("h1").text(title).end()
-                        .find("content").replaceWith($(this).apply());
-          });
-          sheet.template("info", function () {});
-          sheet.template("section", function () {
-              return $(this).apply().wrapIn("<section></section>");
-          });
-          sheet.template("title", function () {
-              var depth = $(this).parents("section").length;
-              if (depth < 1) return;
-              depth++;
-              if (depth > 6) depth = 6;
-              return $(this).apply().wrapIn(sheet.createElement("h" + depth));
-          });
-          sheet.template("para", function () {
-              return $(this).apply().wrapIn("<p></p>");
-          });
-          sheet.template("emphasis", function () {
-              return $(this).apply().wrapIn("<em></em>");
-          });
-          sheet.template("link[xl|href]", function () {
-              var $link = $(this);
-              return $link.apply().wrapIn("<a></a>").attr("href", $link[0].getAttributeNS(XL, "href"));
-          });
-          var $out = sheet.run("my-document.dkb");
-          console.log($out.html());
-        ]]></programlisting>
+        <programlisting><![CDATA[var sheet = require("jaspilite").sheet()
+,   $     = require("jquery")
+,   XL    = "http://www.w3.org/1999/xlink"
+;
+sheet.xmlns({
+    "":   "http://docbook.org/ns/docbook"
+,   "xl": XL
+});
+sheet.template(":root > article", function () {
+    var title = $(this).find("info > title").text();
+    return $("<html><head><title></title></head><body><h1></h1><content/></body></html>")
+              .find("title").text(title).end()
+              .find("h1").text(title).end()
+              .find("content").replaceWith($(this).apply());
+});
+sheet.template("info", function () {});
+sheet.template("section", function () {
+    return $(this).apply().wrapIn("<section></section>");
+});
+sheet.template("title", function () {
+    var depth = $(this).parents("section").length;
+    if (depth < 1) return;
+    depth++;
+    if (depth > 6) depth = 6;
+    return $(this).apply().wrapIn(sheet.createElement("h" + depth));
+});
+sheet.template("para", function () {
+    return $(this).apply().wrapIn("<p></p>");
+});
+sheet.template("emphasis", function () {
+    return $(this).apply().wrapIn("<em></em>");
+});
+sheet.template("link[xl|href]", function () {
+    var $link = $(this);
+    return $link.apply().wrapIn("<a></a>").attr("href", $link[0].getAttributeNS(XL, "href"));
+});
+var $out = sheet.run("my-document.dkb");
+console.log($out.html());]]></programlisting>
       </informalexample>
       <para>
         There are naturally some issues with the above code, but as a transformation sheet it is usable
@@ -500,27 +573,25 @@
         a CSS Schema language that could look like the following:
       </para>
       <informalexample>
-        <programlisting><![CDATA[
-          @rule head {
-              title {
-                  assert:  "Page does not have a title.";
-              }
-              link[rel="stylesheet"][type="text/css"][href="std.css"] {
-                  assert:  "Page does not use the standard stylesheet.";
-              }
-              style {
-                  report:  "Page uses inline style rather than linking.";
-              }
-          }
-          @rule body {
-              :scope.std-body {
-                  assert:   "Page does not use the standard body class.";
-              }
-              :scope > div.std-top {
-                  assert:   "Page does not start with the required page top component.";
-              }
-          }
-        ]]></programlisting>
+        <programlisting><![CDATA[@rule head {
+    title {
+        assert:  "Page does not have a title.";
+    }
+    link[rel="stylesheet"][type="text/css"][href="std.css"] {
+        assert:  "Page does not use the standard stylesheet.";
+    }
+    style {
+        report:  "Page uses inline style rather than linking.";
+    }
+}
+@rule body {
+    :scope.std-body {
+        assert:   "Page does not use the standard body class.";
+    }
+    :scope > div.std-top {
+        assert:   "Page does not start with the required page top component.";
+    }
+}]]></programlisting>
       </informalexample>
       <para>
         The above is syntactically valid CSS that merely adds an <code>@rule</code> block and new properties
@@ -544,9 +615,14 @@
   <section xml:id='conclusion'>
     <title>Conclusion</title>
 
-    <para>
-      XXX
-    </para>
+<para>Characterizing the relationship between the XML and HTML communities is largely a matter of perspective.
+At a high enough level, everyone is using technologies of one sort or another to manipulate trees in various ways.
+From this distance, there's almost no means to distinguish them. At the very closest level, there are persistent
+and irksome disagreements over the nature of error handling, mechanisms for distributed extensibility, even the
+virtue (or lack thereof) of extensible vocabularies. From this distance, the common ground is hard to see.</para>
+
+<para>Surely, the reality is somewhere in between and there are opportunities to learn, share, harmonize, and
+diverge and join, for everyone.</para>
     <!-- 
     nothing is too crazy
     -->

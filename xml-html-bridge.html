@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875961"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL 2.0 Stylesheets V2.0.3" /><meta name="keywords" content="XML, HTML, W3C" /><link rel="stylesheet" type="text/css" href="http://docbook.github.com/release/2.0.3/base/css/default.css" /><script type="text/javascript" src="http://docbook.github.com/release/2.0.3/base/js/dbmodnizr.js"></script></head><body><article id="R.1" lang="en" class="article"><header class="article-titlepage"><h2>XML and HTML Cross-Pollination: A Bridge Too Far?</h2><div class="authorgroup"><div class="author"><h3><span class="personname">Norman Walsh</span></h3></div><div class="author"><h3><span class="personname">Robin Berjon</span></h3></div></div><div class="abstract"><p>
         W3C created a small Task Force to look at convergence paths
         between XML and HTML. One of the notions that it discussed was that
         the two technologies could perhaps not be aligned, but that they could
@@ -11,7 +9,7 @@
         CSS + JavaScript and another syntax? Does HTML actually have some interesting
         approaches to distributed extensibility? Should SVG be in the HTML namespace 
         and has it suffered from changing its syntax?
-      </p></div></div></div><hr/></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#intro">Introduction</a></span></dt><dt><span class="section"><a href="#today">XML in Today's Browser</a></span></dt><dd><dl><dt><span class="section"><a href="#xml-css">XML, CSS, Javascript</a></span></dt><dt><span class="section"><a href="#links">What, no links?</a></span></dt><dt><span class="section"><a href="#accessibility">The Accessibility of XML</a></span></dt><dt><span class="section"><a href="#why">Why bother?</a></span></dt></dl></dd><dt><span class="section"><a href="#born-xml">Born in XML, Live in HTML</a></span></dt><dd><dl><dt><span class="section"><a href="#css-xpointer">XPointer and CSS</a></span></dt><dt><span class="section"><a href="#fo">Can we replace FO?</a></span></dt><dt><span class="section"><a href="#compile-to-js">Compilation to JS</a></span></dt><dt><span class="section"><a href="#svg">How SVG made the jump</a></span></dt><dt><span class="section"><a href="#web-components">Distributed Extensibility on the Web</a></span></dt><dt><span class="section"><a href="#web-xslt">Web Transformations</a></span></dt><dt><span class="section"><a href="#css-schema">CSS Schema</a></span></dt></dl></dd><dt><span class="section"><a href="#conclusion">Conclusion</a></span></dt></dl></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="intro"/>Introduction</h2></div></div></div><p>
+      </p></div></header><div class="toc"><p><b>Table of Contents</b></p><ul class="toc"><li><span><a href="#intro">1. Introduction</a></span></li><li><span><a href="#today">2. XML in Today's Browser</a></span><ul class="toc"><li><span><a href="#xml-css">2.1. XML, CSS, Javascript</a></span></li><li><span><a href="#links">2.2. What, no links?</a></span></li><li><span><a href="#accessibility">2.3. The Accessibility of XML</a></span></li><li><span><a href="#why">2.4. Why bother?</a></span></li></ul></li><li><span><a href="#born-xml">3. Born in XML, Live in HTML</a></span><ul class="toc"><li><span><a href="#css-xpointer">3.1. XPointer and CSS</a></span></li><li><span><a href="#fo">3.2. Can we replace FO?</a></span></li><li><span><a href="#compile-to-js">3.3. Compilation to JS</a></span></li><li><span><a href="#svg">3.4. How SVG made the jump</a></span></li><li><span><a href="#web-components">3.5. Distributed Extensibility on the Web</a></span></li><li><span><a href="#web-xslt">3.6. Web Transformations</a></span></li><li><span><a href="#css-schema">3.7. CSS Schema</a></span></li></ul></li><li><span><a href="#conclusion">4. Conclusion</a></span></li></ul></div><section id="intro" class="section"><div class="section-titlepage"><h3>1. Introduction</h3></div><p>
       Over a year ago, the W3C put together a small XML-HTML Task Force that was asked to look
       into the convergence between these two technology families. This paper is derived from the
       experience of two of the task force's participants in looking at the two ecosystems in order
@@ -29,11 +27,11 @@
       cases possibly because they have been overlooked by those who could benefit from them. Other parts
       may not work because of a technological gap. Yet others may seem no less than utter madness, but 
       could nevertheless constitute an interesting avenue for exploration.
-    </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="today"/>XML in Today's Browser</h2></div></div></div><p>
+    </p></section><section id="today" class="section"><div class="section-titlepage"><h3>2. XML in Today's Browser</h3></div><p>
       XML is used on the Web only in moderation, but this does not prevent it from being available as a
       technology in browsers. In this section we look at what can be done with XML on the Web, what's missing
       and how that could be addressed, and at the overall worthiness of the notion.
-    </p><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="xml-css"/>XML, CSS, Javascript</h3></div></div></div><p>
+    </p><section id="xml-css" class="section"><div class="section-titlepage"><h4>2.1. XML, CSS, Javascript</h4></div><p>
         It is readily possible, using today's browsers, to simply ship XML + CSS on the Web. The style sheets
         that one will have to craft will be more complex than those often used for HTML since they will have
         to define the basic properties of every single element, but that does not constitute a major undertaking
@@ -44,10 +42,27 @@
         common stylistic baseline. Adapting one of those to work for an XML vocabulary should prove
         straightforward. CSS can be applied to an XML document using an <code class="code">xml-stylesheet</code> processing
         instruction.
-      </p><p>
-        Inlined images are slightly trickier than the rest, but it is possible to address that issue with a combination
+      </p><p>For example:</p><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;?xml-stylesheet href="xmltest.css"?&gt;
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>&lt;doc&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;title&gt;Title&lt;/title&gt;
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>&lt;para xml:id="test"&gt;Testing.&lt;/para&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/doc&gt;</pre></div><p>Where <code class="filename">xmltest.css</code> contains:</p><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>doc {
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>    display: block;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>}
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>title {
+<span class="linenumber">  6</span><span class="linenumber-separator"> </span>    display: block;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    font-size: 18pt;
+<span class="linenumber">  8</span><span class="linenumber-separator"> </span>    font-weight: bold;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>}
+<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>para {
+<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>    display:block
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    margin-before: 1em;
+<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>}</pre></div><p>
+        Inlined images are slightly trickier than the rest, but it is at least theoretically possible to address that issue with a combination
         of several <code class="code">background</code> properties and the <code class="code">attr()</code> function which can reuse the value of
-        an attribute inside a CSS property.
+        an attribute inside a CSS property. (Though this does not appear to be supported today.)
       </p><p>
         Of course, once you've styled your document there isn't much that you can do with it beyond read it. In a number
         of cases that may be sufficient, but the interactivity that one has grown accustomed to on the Web will not be
@@ -58,7 +73,19 @@
         (or to implement form-like functionality based on another vocabulary), which brings us back to scripting.
       </p><p>
         There is no equivalent to <code class="code">xml-stylesheet</code> for scripting, but a <code class="code">script</code> element in the
-        XHTML namespace will do the trick. If using XML documents in this fashion were to become more widespread,
+        XHTML namespace will do the trick:</p><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>&lt;?xml-stylesheet href="xmltest.css"?&gt;
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>&lt;doc&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;title&gt;Title&lt;/title&gt;
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>&lt;para xml:id="test"&gt;Testing.&lt;/para&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>
+<span class="linenumber">  6</span><span class="linenumber-separator"> </span>&lt;script xmlns="http://www.w3.org/1999/xhtml"&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>//&lt;![CDATA[
+<span class="linenumber">  8</span><span class="linenumber-separator"> </span>var text = document.createTextNode("Script testing");
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>var para = document.getElementsByTagName("para")[0];
+<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>para.removeChild(para.firstChild)
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>para.appendChild(text);
+<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>//]]&gt;&lt;/script&gt;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>&lt;/doc&gt;</pre></div><p>If using XML documents in this fashion were to become more widespread,
         the idea of am <code class="code">xml-script</code> processing instruction might become interesting (it should not prove
         difficult to specify).
       </p><p>
@@ -68,45 +95,63 @@
         the XML DOM has a number of difference with the HTML DOM (if only that the elements won't be properly specialised
         to a given interface), a number of tasks may prove more complex (and common libraries may stumble on some
         cases).
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="links"/>What, no links?</h3></div></div></div><p>
+      </p><p>Support for <code class="tag-attribute">xml:id</code> attributes in particular would make locating elements in
+the XML DOM easier.</p></section><section id="links" class="section"><div class="section-titlepage"><h4>2.2. What, no links?</h4></div><p>
         One thing is missing from the above picture though: linking. XLink is not supported in any generally reusable
         manner (it is recognised on select SVG elements, but that's about it). Assuming Javascript and CSS, this can 
         be emulated. For a DocBook document for instance, we would have the following CSS:
-      </p><div class="informalexample"><pre class="programlisting">
-          @namespace "http://docbook.org/ns/docbook";
-          @namespace xl "http://www.w3.org/1999/xlink";
-          link[xl|href] {
-              cursor: hand;
-              color:  #00c;
-              text-decoration: underline;
-          }
-        </pre></div><p>
+      </p><figure id="links.3" class="informalexample-wrapper"><div class="informalexample"><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>@namespace "http://docbook.org/ns/docbook";
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>@namespace xl "http://www.w3.org/1999/xlink";
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>link[xl|href] {
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>    cursor: hand;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    color:  #00c;
+<span class="linenumber">  6</span><span class="linenumber-separator"> </span>    text-decoration: underline;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>}</pre></div></div></figure><p>
         And navigation would work using Javascript (assuming jQuery and its xmlns plugin):
-      </p><div class="informalexample"><pre class="programlisting">
-            $.xmlns("http://docbook.org/ns/docbook");
-            $.xmlns("xl", "http://www.w3.org/1999/xlink");
-            $("article").on("click", "link[xl|link]", function () {
-                document.location = $(this)[0].getAttributeNS("http://www.w3.org/1999/xlink", "href");
-            });
-        </pre></div><p>
+      </p><figure id="links.5" class="informalexample-wrapper"><div class="informalexample"><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>$.xmlns("http://docbook.org/ns/docbook");
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>$.xmlns("xl", "http://www.w3.org/1999/xlink");
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>$("article").on("click", "link[xl|link]", function () {
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>    document.location = $(this)[0].getAttributeNS("http://www.w3.org/1999/xlink", "href");
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>});</pre></div></div></figure><p>
         While this works, it is hardly the best for all link-based navigation to be handled in script.
         There have, in the past, been proposals that endeavoured to decorate documents in such a way that
         links would be recognised (for instance, using a style sheet that would identify link elements as
         such) but none ever gained much traction. If using XML on the Web were to be commonplace, this would
         likely be one of the first gaps that would require filling.
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="accessibility"/>The Accessibility of XML</h3></div></div></div><p>
+      </p></section><section id="accessibility" class="section"><div class="section-titlepage"><h4>2.3. The Accessibility of XML</h4></div><p>Theoretically, accessibility of XML should be at least as good, perhaps better than HTML because
+the opportunity exists for expressing richer semantics in the document. In practice, this is utterly
+wrong. Had XML become widespread on the web, languages for mapping accessibility onto XML documents could
+have been developed. Since it didn't, they weren't and the result is that HTML documents have much greater
+accessibility because so much is known in advance about the semantics of the elements.</p><p>Perhaps ARIA and CSS would provide a framework for building some accessibility into XML on the web,
+but it's not likely to be sufficient for the more complex cases.</p></section><section id="why" class="section"><div class="section-titlepage"><h4>2.4. Why bother?</h4></div><p>You probably shouldn't. If you subscribe to the many worlds
+interpretation of quantum mechanics, you may be able to imagine worlds
+where support for XML on the web is widespread and robust. In those
+universes, deploying XML documents on the web, transforming, styling,
+and scripting them is as easy and straightforward as deploying HTML
+documents in our universe. But we don't live there.</p><p>In this universe, the benefits from deploying XML on the web are
+probably limited to closed environments where it's convenient to think
+of the documents that will be deployed on the web as being equally
+useful for additional processing inside the environment. Extracting
+linked data, performing entity enrichment, etc. using existing XML
+technologies on top of the web documents may have real value.</p><p>But actual deployment is probably limited to XML documents that happen
+to also be HTML documents or that generate the HTML DOM you expect when parsed
+with an HTML parser.</p></section></section><section id="born-xml" class="section"><div class="section-titlepage"><h3>3. Born in XML, Live in HTML</h3></div><p>There are a great many technologies developed for XML that could (and do!) apply equally well
+to HTML. If you move beyond the question of syntax to the level of an object model, an XML tree and
+an HTML tree are even closer together than documents written in their respective syntaxes.
+    </p><p>It would be nice to be able to use them when they offer the easiest way forward.</p><section id="css-xpointer" class="section"><div class="section-titlepage"><h4>3.1. XPointer and CSS</h4></div><p>XPointer and CSS both describe mechanisms for selecting regions of a document. In fact, XPointer is
+really a framework for such mechanisms. An XPointer implementation that understood a “CSS scheme” would allow
+authors to reuse expressions across styling and selection.</p><p>See, for example, <a href="http://simonstl.com/articles/cssFragID.html">Using CSS
+Selectors as Fragment Identifiers</a> by
+<span class="personname"><span class="firstname">Simon</span> <span class="surname">St.
+Laurent</span></span>
+<span class="personname"><span class="firstname">Eric</span> <span class="surname">Meyer</span></span>.</p></section><section id="fo" class="section"><div class="section-titlepage"><h4>3.2. Can we replace FO?</h4></div><p>
         XXX
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="why"/>Why bother?</h3></div></div></div><p>
-        XXX
-      </p></div></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="born-xml"/>Born in XML, Live in HTML</h2></div></div></div><p>
-      XXX
-    </p><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="css-xpointer"/>XPointer and CSS</h3></div></div></div><p>
-        XXX
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="fo"/>Can we replace FO?</h3></div></div></div><p>
-        XXX
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="compile-to-js"/>Compilation to JS</h3></div></div></div><p>
-        XXX
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="svg"/>How SVG made the jump</h3></div></div></div><p>
+      </p></section><section id="compile-to-js" class="section"><div class="section-titlepage"><h4>3.3. Compilation to JS</h4></div><p>Another approach is simply to bring those tools directly into the browser. We've seen clear demonstrations
+of substantial success in these areas in the work of
+<a href="http://saxonica.com/">Saxonica</a>’s on “Saxon Client Edition” and
+<span class="personname"><span class="firstname">Vojtěch</span> <span class="surname">Toman</span></span> on
+<a href="http://www.balisage.net/Proceedings/vol5/html/Toman01/BalisageVol5-Toman01.html">XML Pipeline Processing
+in the Browser</a>.</p></section><section id="svg" class="section"><div class="section-titlepage"><h4>3.4. How SVG made the jump</h4></div><p>
         SVG was born and raised an XML language. It has its own namespace fully defined with a proper
         namespace document. It has a RelaxNG as well as an NVDL schema; in fact at one point or another
         it has even had a DTD and an XML Schema. It uses XLink, and version 1.2 even adopted <code class="code">xml:id</code>.
@@ -142,14 +187,14 @@
       </p><p>
         An interesting open question here is whether there are other languages that could be given the same
         treatment.
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="web-components"/>Distributed Extensibility on the Web</h3></div></div></div><p>
+      </p></section><section id="web-components" class="section"><div class="section-titlepage"><h4>3.5. Distributed Extensibility on the Web</h4></div><p>
         Much discussion has surrounded a property of “Distributed Extensibility” that XML is supposedly
         endowed with (by virtue of namespaces) when HTML is not. But is that concern justified?
       </p><p>
         The first thing to note is that saying that XML supports distributed extensibility is not a very
         useful statement to make. XML is just a syntax, and if you couldn't freely create languages with
         it it's not clear what it would be useful for. A more precise characterisation is that, given
-        that namespaces can be used to mix vocabularies, XML <span class="emphasis"><em>languages</em></span> support distributed
+        that namespaces can be used to mix vocabularies, XML <em>languages</em> support distributed
         extensibility. Anyone can grab an XML document that uses a given language, slap an extra namespace
         declaration, and start injecting attributes and elements from a different language without hurting
         the first.
@@ -180,7 +225,7 @@
         it failed to see the light of day.
       </p><p>
         Meanwhile, work has progressed on a promising new HTML-based technology called
-        <a class="link" href="http://dvcs.w3.org/hg/webcomponents/raw-file/tip/spec/shadow/index.html" target="">Web Components</a>.
+        <a href="http://dvcs.w3.org/hg/webcomponents/raw-file/tip/spec/shadow/index.html">Web Components</a>.
         Geared towards interactive documents, it makes it possible to decorate an existing document with
         any number of “shadow DOMs” that can hang off its elements, and can themselves contain further shadow DOMs
         recursively. The current work is still in its infancy, but it has roots in previous work called XBL which
@@ -191,7 +236,7 @@
         could be transposed to batch operations easily or if that approach would even be workable in an XML context,
         but it's a space worth watching. It might just happen that the XML ecosystem could import concepts from
         Web Components in order to develop its own support for distributed extensibility.
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="web-xslt"/>Web Transformations</h3></div></div></div><p>
+      </p></section><section id="web-xslt" class="section"><div class="section-titlepage"><h4>3.6. Web Transformations</h4></div><p>
         The Javascript community is presently seeing a small cottage industry in the production of templating 
         languages. In fact, there are days on which one may get the impression that you can't be a proper
         Javascript developer if you haven't released your own templating language to GitHub.
@@ -202,10 +247,10 @@
       </p><p>
         For that, XSLT is currently king. But try as you might, getting your typical web hacker to even think about
         perhaps using it is nigh impossible. Back in 1998, a submission called 
-        <a class="link" href="http://www.w3.org/TR/NOTE-STTS3" target="">STTS</a> was made to the W3C. It used a CSS based declarative
+        <a href="http://www.w3.org/TR/NOTE-STTS3">STTS</a> was made to the W3C. It used a CSS based declarative
         language to transform documents (primarily HTML back then), but never met with strong support. Re-evaluating it
         in today's context, it is interesting to note that it bears some similarities with the now popular 
-        <a class="link" href="http://haml-lang.com/" target="">HAML</a> templating language. That being said, its highly declarative
+        <a href="http://haml-lang.com/">HAML</a> templating language. That being said, its highly declarative
         nature is likely to make it only slightly more popular than XSLT with this crowd.
       </p><p>
         Would it be possible to implement a language or library built on the principles that make XSLT a great language
@@ -215,7 +260,7 @@
         XSLT's core processing model and see how far that gets us. That is a much smaller endeavour, in fact the
         XSLT processing model is so elegantly short that we can simply reproduce it here from the specification in
         its unabridged entirety:
-      </p><div class="blockquote"><table border="0" width="100%" cellspacing="0" cellpadding="0" class="blockquote" summary="Block quote"><tr><td valign="top"> </td><td valign="top"><p>
+      </p><blockquote><p>
           A list of source nodes is processed to create a result tree fragment. The result tree is constructed by 
           processing a list containing just the root node. A list of source nodes is processed by appending the 
           result tree structure created by processing each of the members of the list in order. A node is processed 
@@ -227,50 +272,48 @@
         </p><p>
           Implementations are free to process the source document in any way that produces the same result as if it 
           were processed using this processing model.
-        </p></td><td valign="top"> </td></tr><tr><td valign="top"> </td><td colspan="2" align="right" valign="top">--<span class="attribution">XSLT 1.0, James Clark</span></td></tr></table></div><p>
+        </p><div class="attribution"><span class="mdash">—</span>XSLT 1.0, James Clark</div></blockquote><p>
         That doesn't solve all of our problems of course, but it's a start. Based on this we could imagine some form
         of JSLT code that might look like the following if we wanted to transform a simple DocBook document to 
         HTML.
-      </p><div class="informalexample"><pre class="programlisting">
-          var sheet = require("jaspilite").sheet()
-          ,   $     = require("jquery")
-          ,   XL    = "http://www.w3.org/1999/xlink"
-          ;
-          sheet.xmlns({
-              "":   "http://docbook.org/ns/docbook"
-          ,   "xl": XL
-          });
-          sheet.template(":root &gt; article", function () {
-              var title = $(this).find("info &gt; title").text();
-              return $("&lt;html&gt;&lt;head&gt;&lt;title&gt;&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;&lt;/h1&gt;&lt;content/&gt;&lt;/body&gt;&lt;/html&gt;")
-                        .find("title").text(title).end()
-                        .find("h1").text(title).end()
-                        .find("content").replaceWith($(this).apply());
-          });
-          sheet.template("info", function () {});
-          sheet.template("section", function () {
-              return $(this).apply().wrapIn("&lt;section&gt;&lt;/section&gt;");
-          });
-          sheet.template("title", function () {
-              var depth = $(this).parents("section").length;
-              if (depth &lt; 1) return;
-              depth++;
-              if (depth &gt; 6) depth = 6;
-              return $(this).apply().wrapIn(sheet.createElement("h" + depth));
-          });
-          sheet.template("para", function () {
-              return $(this).apply().wrapIn("&lt;p&gt;&lt;/p&gt;");
-          });
-          sheet.template("emphasis", function () {
-              return $(this).apply().wrapIn("&lt;em&gt;&lt;/em&gt;");
-          });
-          sheet.template("link[xl|href]", function () {
-              var $link = $(this);
-              return $link.apply().wrapIn("&lt;a&gt;&lt;/a&gt;").attr("href", $link[0].getAttributeNS(XL, "href"));
-          });
-          var $out = sheet.run("my-document.dkb");
-          console.log($out.html());
-        </pre></div><p>
+      </p><figure id="web-xslt.8" class="informalexample-wrapper"><div class="informalexample"><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>var sheet = require("jaspilite").sheet()
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>,   $     = require("jquery")
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>,   XL    = "http://www.w3.org/1999/xlink"
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>sheet.xmlns({
+<span class="linenumber">  6</span><span class="linenumber-separator"> </span>    "":   "http://docbook.org/ns/docbook"
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>,   "xl": XL
+<span class="linenumber">  8</span><span class="linenumber-separator"> </span>});
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>sheet.template(":root &gt; article", function () {
+<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>    var title = $(this).find("info &gt; title").text();
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    return $("&lt;html&gt;&lt;head&gt;&lt;title&gt;&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;&lt;/h1&gt;&lt;content/&gt;&lt;/body&gt;&lt;/html&gt;")
+<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>              .find("title").text(title).end()
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>              .find("h1").text(title).end()
+<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>              .find("content").replaceWith($(this).apply());
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>});
+<span class="linenumber"> 16</span><span class="linenumber-separator"> </span>sheet.template("info", function () {});
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>sheet.template("section", function () {
+<span class="linenumber"> 18</span><span class="linenumber-separator"> </span>    return $(this).apply().wrapIn("&lt;section&gt;&lt;/section&gt;");
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>});
+<span class="linenumber"> 20</span><span class="linenumber-separator"> </span>sheet.template("title", function () {
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    var depth = $(this).parents("section").length;
+<span class="linenumber"> 22</span><span class="linenumber-separator"> </span>    if (depth &lt; 1) return;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    depth++;
+<span class="linenumber"> 24</span><span class="linenumber-separator"> </span>    if (depth &gt; 6) depth = 6;
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    return $(this).apply().wrapIn(sheet.createElement("h" + depth));
+<span class="linenumber"> 26</span><span class="linenumber-separator"> </span>});
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>sheet.template("para", function () {
+<span class="linenumber"> 28</span><span class="linenumber-separator"> </span>    return $(this).apply().wrapIn("&lt;p&gt;&lt;/p&gt;");
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>});
+<span class="linenumber"> 30</span><span class="linenumber-separator"> </span>sheet.template("emphasis", function () {
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    return $(this).apply().wrapIn("&lt;em&gt;&lt;/em&gt;");
+<span class="linenumber"> 32</span><span class="linenumber-separator"> </span>});
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>sheet.template("link[xl|href]", function () {
+<span class="linenumber"> 34</span><span class="linenumber-separator"> </span>    var $link = $(this);
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    return $link.apply().wrapIn("&lt;a&gt;&lt;/a&gt;").attr("href", $link[0].getAttributeNS(XL, "href"));
+<span class="linenumber"> 36</span><span class="linenumber-separator"> </span>});
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>var $out = sheet.run("my-document.dkb");
+<span class="linenumber"> 38</span><span class="linenumber-separator"> </span>console.log($out.html());</pre></div></div></figure><p>
         There are naturally some issues with the above code, but as a transformation sheet it is usable
         and ought to seem roughly familiar to JS developers in large part thanks to its reliance on jQuery.
         The first problem is namespaces: jQuery (and its underlying CSS engine, Sizzle) is not natively
@@ -297,7 +340,7 @@
         Of course this is just a thought experiment and it is likely to have many more failings. There is no
         doubt that the crafty minds of XSLT experts will be able to find many an XSLT construct that could be
         difficult to reproduce here. That said, crazier ideas have become popular.
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="css-schema"/>CSS Schema</h3></div></div></div><p>
+      </p></section><section id="css-schema" class="section"><div class="section-titlepage"><h4>3.7. CSS Schema</h4></div><p>
         The XML ecosystem is big on validation, so big in fact that drinking games involving reciting long lists
         of validation technologies had to be banned after too many xml-dev subscribers were found suffering of
         delirium tremens.
@@ -317,27 +360,25 @@
       </p><p>
         Taking the basic notions of rules and assertions, we could imagine (again, as a thought experiment)
         a CSS Schema language that could look like the following:
-      </p><div class="informalexample"><pre class="programlisting">
-          @rule head {
-              title {
-                  assert:  "Page does not have a title.";
-              }
-              link[rel="stylesheet"][type="text/css"][href="std.css"] {
-                  assert:  "Page does not use the standard stylesheet.";
-              }
-              style {
-                  report:  "Page uses inline style rather than linking.";
-              }
-          }
-          @rule body {
-              :scope.std-body {
-                  assert:   "Page does not use the standard body class.";
-              }
-              :scope &gt; div.std-top {
-                  assert:   "Page does not start with the required page top component.";
-              }
-          }
-        </pre></div><p>
+      </p><figure id="css-schema.7" class="informalexample-wrapper"><div class="informalexample"><div class="programlisting"><pre><span class="linenumber">  1</span><span class="linenumber-separator"> </span>@rule head {
+<span class="linenumber">  2</span><span class="linenumber-separator"> </span>    title {
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        assert:  "Page does not have a title.";
+<span class="linenumber">  4</span><span class="linenumber-separator"> </span>    }
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    link[rel="stylesheet"][type="text/css"][href="std.css"] {
+<span class="linenumber">  6</span><span class="linenumber-separator"> </span>        assert:  "Page does not use the standard stylesheet.";
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    }
+<span class="linenumber">  8</span><span class="linenumber-separator"> </span>    style {
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        report:  "Page uses inline style rather than linking.";
+<span class="linenumber"> 10</span><span class="linenumber-separator"> </span>    }
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>}
+<span class="linenumber"> 12</span><span class="linenumber-separator"> </span>@rule body {
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    :scope.std-body {
+<span class="linenumber"> 14</span><span class="linenumber-separator"> </span>        assert:   "Page does not use the standard body class.";
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>    }
+<span class="linenumber"> 16</span><span class="linenumber-separator"> </span>    :scope &gt; div.std-top {
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>        assert:   "Page does not start with the required page top component.";
+<span class="linenumber"> 18</span><span class="linenumber-separator"> </span>    }
+<span class="linenumber">   </span><span class="linenumber-separator"> </span>}</pre></div></div></figure><p>
         The above is syntactically valid CSS that merely adds an <code class="code">@rule</code> block and new properties
         called <code class="code">assert</code> and <code class="code">report</code> that all correspond to the same constructs in Schematron.
         Selectors are used in the same manner that XPath is. Of note is the <code class="code">:scope</code> selector which
@@ -350,6 +391,9 @@
       </p><p>
         And since CSS can be applied interactively, this could notably be used in order to provide visual feedback
         inside browser-based document-editing systems.
-      </p></div></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="conclusion"/>Conclusion</h2></div></div></div><p>
-      XXX
-    </p></div></div></body></html>
+      </p></section></section><section id="conclusion" class="section"><div class="section-titlepage"><h3>4. Conclusion</h3></div><p>Characterizing the relationship between the XML and HTML communities is largely a matter of perspective.
+At a high enough level, everyone is using technologies of one sort or another to manipulate trees in various ways.
+From this distance, there's almost no means to distinguish them. At the very closest level, there are persistent
+and irksome disagreements over the nature of error handling, mechanisms for distributed extensibility, even the
+virtue (or lack thereof) of extensible vocabularies. From this distance, the common ground is hard to see.</p><p>Surely, the reality is somewhere in between and there are opportunities to learn, share, harmonize, and
+diverge and join, for everyone.</p></section></article></body></html>
