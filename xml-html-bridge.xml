@@ -141,11 +141,39 @@
       <title>What, no links?</title>
       <para>
         One thing is missing from the above picture though: linking. XLink is not supported in any generally reusable
-        manner (it is recognised on select SVG elements, but that's about it).
+        manner (it is recognised on select SVG elements, but that's about it). Assuming Javascript and CSS, this can 
+        be emulated. For a DocBook document for instance, we would have the following CSS:
       </para>
-      <!-- 
-        XLink unsupported
-      -->
+      <informalexample>
+        <programlisting><![CDATA[
+          @namespace "http://docbook.org/ns/docbook";
+          @namespace xl "http://www.w3.org/1999/xlink";
+          link[xl|href] {
+              cursor: hand;
+              color:  #00c;
+              text-decoration: underline;
+          }
+        ]]></programlisting>
+      </informalexample>
+      <para>
+        And navigation would work using Javascript (assuming jQuery and its xmlns plugin):
+      </para>
+      <informalexample>
+        <programlisting><![CDATA[
+            $.xmlns("http://docbook.org/ns/docbook");
+            $.xmlns("xl", "http://www.w3.org/1999/xlink");
+            $("article").on("click", "link[xl|link]", function () {
+                document.location = $(this)[0].getAttributeNS("http://www.w3.org/1999/xlink", "href");
+            });
+        ]]></programlisting>
+      </informalexample>
+      <para>
+        While this works, it is hardly the best for all link-based navigation to be handled in script.
+        There have, in the past, been proposals that endeavoured to decorate documents in such a way that
+        links would be recognised (for instance, using a style sheet that would identify link elements as
+        such) but none ever gained much traction. If using XML on the Web were to be commonplace, this would
+        likely be one of the first gaps that would require filling.
+      </para>
     </section>
     <section xml:id='accessibility'>
       <title>The Accessibility of XML</title>

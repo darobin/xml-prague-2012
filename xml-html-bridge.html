@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875941"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875961"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
         W3C created a small Task Force to look at convergence paths
         between XML and HTML. One of the notions that it discussed was that
         the two technologies could perhaps not be aligned, but that they could
@@ -70,7 +70,30 @@
         cases).
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="links"/>What, no links?</h3></div></div></div><p>
         One thing is missing from the above picture though: linking. XLink is not supported in any generally reusable
-        manner (it is recognised on select SVG elements, but that's about it).
+        manner (it is recognised on select SVG elements, but that's about it). Assuming Javascript and CSS, this can 
+        be emulated. For a DocBook document for instance, we would have the following CSS:
+      </p><div class="informalexample"><pre class="programlisting">
+          @namespace "http://docbook.org/ns/docbook";
+          @namespace xl "http://www.w3.org/1999/xlink";
+          link[xl|href] {
+              cursor: hand;
+              color:  #00c;
+              text-decoration: underline;
+          }
+        </pre></div><p>
+        And navigation would work using Javascript (assuming jQuery and its xmlns plugin):
+      </p><div class="informalexample"><pre class="programlisting">
+            $.xmlns("http://docbook.org/ns/docbook");
+            $.xmlns("xl", "http://www.w3.org/1999/xlink");
+            $("article").on("click", "link[xl|link]", function () {
+                document.location = $(this)[0].getAttributeNS("http://www.w3.org/1999/xlink", "href");
+            });
+        </pre></div><p>
+        While this works, it is hardly the best for all link-based navigation to be handled in script.
+        There have, in the past, been proposals that endeavoured to decorate documents in such a way that
+        links would be recognised (for instance, using a style sheet that would identify link elements as
+        such) but none ever gained much traction. If using XML on the Web were to be commonplace, this would
+        likely be one of the first gaps that would require filling.
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="accessibility"/>The Accessibility of XML</h3></div></div></div><p>
         XXX
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="why"/>Why bother?</h3></div></div></div><p>
