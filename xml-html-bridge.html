@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875891"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>XML and HTML Cross-Pollination: A Bridge Too Far?</title><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"/><meta name="description" content="W3C created a small Task Force to look at convergence paths between XML and HTML. One of the notions that it discussed was that the two technologies could perhaps not be aligned, but that they could cross-pollinate. This talk will look at ways for this to happen. Can we use CSS Selectors in XPointer? Can we build something like XSLT using CSS + JavaScript and another syntax? Does HTML actually have some interesting approaches to distributed extensibility? Should SVG be in the HTML namespace and has it suffered from changing its syntax?"/><meta name="keywords" content="XML, HTML, W3C"/></head><body><div class="article" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="id36875941"/>XML and HTML Cross-Pollination: A Bridge Too Far?</h2></div><div><div class="author"><h3 class="author">Norm Walsh</h3><div class="affiliation"><span class="jobtitle">Rock Star<br/></span><span class="orgname">MarkLogic<br/></span></div><code class="email">&lt;<a class="email" href="mailto:ndw@nwalsh.com">ndw@nwalsh.com</a>&gt;</code></div></div><div><div class="author"><h3 class="author">Robin Berjon</h3><div class="affiliation"><span class="jobtitle">Freelance consultant<br/></span><span class="orgname">Robineko<br/></span></div><code class="email">&lt;<a class="email" href="mailto:robin@berjon.com">robin@berjon.com</a>&gt;</code></div></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>
         W3C created a small Task Force to look at convergence paths
         between XML and HTML. One of the notions that it discussed was that
         the two technologies could perhaps not be aligned, but that they could
@@ -11,7 +11,7 @@
         CSS + JavaScript and another syntax? Does HTML actually have some interesting
         approaches to distributed extensibility? Should SVG be in the HTML namespace 
         and has it suffered from changing its syntax?
-      </p></div></div></div><hr/></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#intro">Introduction</a></span></dt><dt><span class="section"><a href="#today">XML in Today's Browser</a></span></dt><dd><dl><dt><span class="section"><a href="#xml-css">XML + CSS</a></span></dt><dt><span class="section"><a href="#xml-js">XML + CSS + JS</a></span></dt><dt><span class="section"><a href="#links">What, no links?</a></span></dt><dt><span class="section"><a href="#accessibility">The Accessibility of XML</a></span></dt><dt><span class="section"><a href="#why">Why bother?</a></span></dt></dl></dd><dt><span class="section"><a href="#born-xml">Born in XML, Live in HTML</a></span></dt><dd><dl><dt><span class="section"><a href="#css-xpointer">XPointer and CSS</a></span></dt><dt><span class="section"><a href="#fo">Can we replace FO?</a></span></dt><dt><span class="section"><a href="#compile-to-js">Compilation to JS</a></span></dt><dt><span class="section"><a href="#svg">How SVG made the jump</a></span></dt><dt><span class="section"><a href="#web-components">Distributed Extensibility on the Web</a></span></dt><dt><span class="section"><a href="#web-xslt">Web Transformations</a></span></dt><dt><span class="section"><a href="#css-schema">CSS Schema</a></span></dt></dl></dd><dt><span class="section"><a href="#conclusion">Conclusion</a></span></dt></dl></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="intro"/>Introduction</h2></div></div></div><p>
+      </p></div></div></div><hr/></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#intro">Introduction</a></span></dt><dt><span class="section"><a href="#today">XML in Today's Browser</a></span></dt><dd><dl><dt><span class="section"><a href="#xml-css">XML, CSS, Javascript</a></span></dt><dt><span class="section"><a href="#links">What, no links?</a></span></dt><dt><span class="section"><a href="#accessibility">The Accessibility of XML</a></span></dt><dt><span class="section"><a href="#why">Why bother?</a></span></dt></dl></dd><dt><span class="section"><a href="#born-xml">Born in XML, Live in HTML</a></span></dt><dd><dl><dt><span class="section"><a href="#css-xpointer">XPointer and CSS</a></span></dt><dt><span class="section"><a href="#fo">Can we replace FO?</a></span></dt><dt><span class="section"><a href="#compile-to-js">Compilation to JS</a></span></dt><dt><span class="section"><a href="#svg">How SVG made the jump</a></span></dt><dt><span class="section"><a href="#web-components">Distributed Extensibility on the Web</a></span></dt><dt><span class="section"><a href="#web-xslt">Web Transformations</a></span></dt><dt><span class="section"><a href="#css-schema">CSS Schema</a></span></dt></dl></dd><dt><span class="section"><a href="#conclusion">Conclusion</a></span></dt></dl></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="intro"/>Introduction</h2></div></div></div><p>
       Over a year ago, the W3C put together a small XML-HTML Task Force that was asked to look
       into the convergence between these two technology families. This paper is derived from the
       experience of two of the task force's participants in looking at the two ecosystems in order
@@ -30,13 +30,47 @@
       may not work because of a technological gap. Yet others may seem no less than utter madness, but 
       could nevertheless constitute an interesting avenue for exploration.
     </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="today"/>XML in Today's Browser</h2></div></div></div><p>
-      XXX
-    </p><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="xml-css"/>XML + CSS</h3></div></div></div><p>
-        XXX
-      </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="xml-js"/>XML + CSS + JS</h3></div></div></div><p>
-        XXX
+      XML is used on the Web only in moderation, but this does not prevent it from being available as a
+      technology in browsers. In this section we look at what can be done with XML on the Web, what's missing
+      and how that could be addressed, and at the overall worthiness of the notion.
+    </p><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="xml-css"/>XML, CSS, Javascript</h3></div></div></div><p>
+        It is readily possible, using today's browsers, to simply ship XML + CSS on the Web. The style sheets
+        that one will have to craft will be more complex than those often used for HTML since they will have
+        to define the basic properties of every single element, but that does not constitute a major undertaking
+        (unless the given language is huge, naturally).
+      </p><p>
+        A good starting point for the above would be one of the many CSS reset style sheets that can be found
+        at large. The goal of these is to reset the default styles that browsers apply (which differ) so as to start from a 
+        common stylistic baseline. Adapting one of those to work for an XML vocabulary should prove
+        straightforward. CSS can be applied to an XML document using an <code class="code">xml-stylesheet</code> processing
+        instruction.
+      </p><p>
+        Inlined images are slightly trickier than the rest, but it is possible to address that issue with a combination
+        of several <code class="code">background</code> properties and the <code class="code">attr()</code> function which can reuse the value of
+        an attribute inside a CSS property.
+      </p><p>
+        Of course, once you've styled your document there isn't much that you can do with it beyond read it. In a number
+        of cases that may be sufficient, but the interactivity that one has grown accustomed to on the Web will not be
+        directly possible. For that, one needs support for forms and Javascript.
+      </p><p>
+        XForms might spring to mind as a good option for the inclusion of forms in your XML document, but given that it
+        is not natively supported in browsers a client-side Javascript implementation will be required to support it
+        (or to implement form-like functionality based on another vocabulary), which brings us back to scripting.
+      </p><p>
+        There is no equivalent to <code class="code">xml-stylesheet</code> for scripting, but a <code class="code">script</code> element in the
+        XHTML namespace will do the trick. If using XML documents in this fashion were to become more widespread,
+        the idea of am <code class="code">xml-script</code> processing instruction might become interesting (it should not prove
+        difficult to specify).
+      </p><p>
+        Once this is set up, most of the moving parts ought to be functional. Since the DOM is properly live, just
+        like any HTML DOM, modifications to the tree will have the effect on the rendering that you would expect.
+        By and large, popular libraries like jQuery will (mostly) work. One thing worth noting though is that since
+        the XML DOM has a number of difference with the HTML DOM (if only that the elements won't be properly specialised
+        to a given interface), a number of tasks may prove more complex (and common libraries may stumble on some
+        cases).
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="links"/>What, no links?</h3></div></div></div><p>
-        XXX
+        One thing is missing from the above picture though: linking. XLink is not supported in any generally reusable
+        manner (it is recognised on select SVG elements, but that's about it).
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="accessibility"/>The Accessibility of XML</h3></div></div></div><p>
         XXX
       </p></div><div class="section" xml:lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="why"/>Why bother?</h3></div></div></div><p>

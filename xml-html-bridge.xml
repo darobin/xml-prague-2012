@@ -87,36 +87,61 @@
   <section xml:id='today'>
     <title>XML in Today's Browser</title>
     <para>
-      XXX
+      XML is used on the Web only in moderation, but this does not prevent it from being available as a
+      technology in browsers. In this section we look at what can be done with XML on the Web, what's missing
+      and how that could be addressed, and at the overall worthiness of the notion.
     </para>
 
     <section xml:id='xml-css'>
-      <title>XML + CSS</title>
-
+      <title>XML, CSS, Javascript</title>
       <para>
-        XXX
+        It is readily possible, using today's browsers, to simply ship XML + CSS on the Web. The style sheets
+        that one will have to craft will be more complex than those often used for HTML since they will have
+        to define the basic properties of every single element, but that does not constitute a major undertaking
+        (unless the given language is huge, naturally).
       </para>
-      <!-- 
-       (which mostly works, I think)
-      -->
-    </section>
-    <section xml:id='xml-js'>
-      <title>XML + CSS + JS</title>
-
       <para>
-        XXX
+        A good starting point for the above would be one of the many CSS reset style sheets that can be found
+        at large. The goal of these is to reset the default styles that browsers apply (which differ) so as to start from a 
+        common stylistic baseline. Adapting one of those to work for an XML vocabulary should prove
+        straightforward. CSS can be applied to an XML document using an <code>xml-stylesheet</code> processing
+        instruction.
       </para>
-      <!-- 
-       (which mostly doesn't, I think)
-      * <?xml-script?>
-      * XForms. Is it worth it?
-      -->
+      <para>
+        Inlined images are slightly trickier than the rest, but it is possible to address that issue with a combination
+        of several <code>background</code> properties and the <code>attr()</code> function which can reuse the value of
+        an attribute inside a CSS property.
+      </para>
+      <para>
+        Of course, once you've styled your document there isn't much that you can do with it beyond read it. In a number
+        of cases that may be sufficient, but the interactivity that one has grown accustomed to on the Web will not be
+        directly possible. For that, one needs support for forms and Javascript.
+      </para>
+      <para>
+        XForms might spring to mind as a good option for the inclusion of forms in your XML document, but given that it
+        is not natively supported in browsers a client-side Javascript implementation will be required to support it
+        (or to implement form-like functionality based on another vocabulary), which brings us back to scripting.
+      </para>
+      <para>
+        There is no equivalent to <code>xml-stylesheet</code> for scripting, but a <code>script</code> element in the
+        XHTML namespace will do the trick. If using XML documents in this fashion were to become more widespread,
+        the idea of am <code>xml-script</code> processing instruction might become interesting (it should not prove
+        difficult to specify).
+      </para>
+      <para>
+        Once this is set up, most of the moving parts ought to be functional. Since the DOM is properly live, just
+        like any HTML DOM, modifications to the tree will have the effect on the rendering that you would expect.
+        By and large, popular libraries like jQuery will (mostly) work. One thing worth noting though is that since
+        the XML DOM has a number of difference with the HTML DOM (if only that the elements won't be properly specialised
+        to a given interface), a number of tasks may prove more complex (and common libraries may stumble on some
+        cases).
+      </para>
     </section>
     <section xml:id='links'>
       <title>What, no links?</title>
-
       <para>
-        XXX
+        One thing is missing from the above picture though: linking. XLink is not supported in any generally reusable
+        manner (it is recognised on select SVG elements, but that's about it).
       </para>
       <!-- 
         XLink unsupported
