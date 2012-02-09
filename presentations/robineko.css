@@ -1,0 +1,140 @@
+
+/* --- Includes --- */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic);
+
+html {
+    background: #333;
+    font-family: "Open Sans", "Open Sans Condensed", "Gill Sans Light", "Gill Sans", sans-serif;
+}
+
+body {
+    background: #fff;
+}
+
+/* A section is a slide. Its size is 800x600, and this will never change */
+section {
+    font-size: 40px;
+/*    background: url("logo.png") no-repeat left bottom;*/
+}
+
+h1, h2 {
+    margin-top: 200px;
+    text-align: center;
+    font-size: 80px;
+}
+h3 {
+    margin: 50px 0 40px 100px;
+}
+
+ul, p {
+    margin: 0px 50px 0 150px;
+}
+
+a {
+    color:  #339bec;
+    text-decoration:    none;
+}
+
+q {
+    display: inline-block;
+    width: 700px;
+    height: 600px;
+    background-color: black;
+    color: white;
+    font-size: 60px;
+    padding: 50px;
+}
+
+img.fs, video.fs {
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    top: 0;
+    background-color: black;
+/*    z-index: -1;*/
+}
+
+footer {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size:  25px;
+    text-align: right;
+}
+
+/* --- Transitions --- */
+section {
+    -moz-transition: left 200ms linear 0s;
+    -webkit-transition: left 200ms linear 0s;
+    -ms-transition: left 200ms linear 0s;
+    transition: left 200ms linear 0s;
+}
+section {
+    left: -150%;
+}
+section[aria-selected] {
+    left: 0;
+}
+section[aria-selected] ~ section {
+    left: +150%;
+}
+
+/* --- Incremental --- */
+.incremental > * {
+    opacity: 1;
+}
+.incremental > *[aria-selected] {
+    color: #f90;
+    opacity: 1;
+}
+.incremental > *[aria-selected] ~ * {
+    opacity: 0.2;
+}
+
+.strikeAfterable .strikeAfter {
+    text-decoration:    line-through;
+}
+
+.strikeAfterable .strikeAfter[aria-selected], .strikeAfterable *[aria-selected] ~ * {
+    text-decoration:    none;
+}
+
+/* --- SYNTAX HIGHLIGHTING --- */
+/*pre.prettyprint*/
+/* Pretty printing styles. Used with prettify.js. */
+.str { color: #080; }
+.kwd { color: #008; }
+.com { color: #800; }
+.typ { color: #606; }
+.lit { color: #066; }
+.pun { color: #660; }
+.pln { color: #000; }
+.tag { color: #008; }
+.atn { color: #606; }
+.atv { color: #080; }
+.dec { color: #606; }
+pre.prettyprint {
+    margin: 20px;
+    padding:    10px;
+    border: 1px solid #888;
+    font-size:  20px;
+}
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */
+li.L0, li.L1, li.L2, li.L3, li.L5, li.L6, li.L7, li.L8 { list-style-type: none }
+/* Alternate shading for lines */
+li.L1, li.L3, li.L5, li.L7, li.L9 { background: #eee }
+
+@media print {
+  .str { color: #060; }
+  .kwd { color: #006; font-weight: bold; }
+  .com { color: #600; font-style: italic; }
+  .typ { color: #404; font-weight: bold; }
+  .lit { color: #044; }
+  .pun { color: #440; }
+  .pln { color: #000; }
+  .tag { color: #006; font-weight: bold; }
+  .atn { color: #404; }
+  .atv { color: #060; }
+}
