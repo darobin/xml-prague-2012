@@ -14,7 +14,7 @@
       <footer>
         <strong>XML Prague</strong><br/>
         2012-02-11<br/>
-        Norm Walsh &amp; Robin Berjon
+        Robin Berjon &amp; Norman Walsh
       </footer>
     </section>
 
@@ -33,11 +33,87 @@
     </section>
 
     <!-- regular content slide (can use incremental bullets, and things other than bullets too) -->
+
     <section>
-      <h3>Unicorns!</h3>
+      <h3>XML in the browser</h3>
+      <pre style="font-size: 25px; margin-left: 2em;">&lt;?xml-stylesheet href="xmltest.css"?>
+&lt;doc>
+  &lt;title>Title&lt;/title>
+  &lt;para xml:id="test">Testing.&lt;/para>
+&lt;/doc></pre>
+    </section>
+
+    <section>
+      <h3>XML in the browser</h3>
+       <ul>
+         <li>Browser reads XML, renders with CSS</li>
+         <li>Works today, mostly:
+         <ul>
+           <li>Images are theoretically possible</li>
+         </ul>
+         </li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>XML in the browser: Scripting</h3>
+<pre style="font-size: 25px; margin-left: 2em;">&lt;?xml-stylesheet href="xmltest.css"?>
+&lt;doc>
+&lt;title>Title&lt;/title>
+&lt;para xml:id="test">Testing.&lt;/para>
+
+&lt;script xmlns="http://www.w3.org/1999/xhtml">
+//&lt;![CDATA[
+var text = document.createTextNode("Script testing");
+var para = document.getElementsByTagName("para")[0];
+para.removeChild(para.firstChild)
+para.appendChild(text);
+//]]>&lt;/script>
+&lt;/doc></pre>
+    </section>
+
+    <section>
+      <h3>XML in the browser: Scripting (continued)</h3>
+       <ul>
+         <li>HTML scripts are interpreted</li>
+         <li>Scripts can access the XML DOM</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>XML in the browser: Linking</h3>
+       <ul>
+         <li>Very vocabulary dependent (XLink not widely adopted, <em>sigh</em>)</li>
+         <li>XLink support is plausible with CSS and JavaScript</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>XML in the browser: Accessibility</h3>
+       <ul>
+         <li>Theoretically, at least as good as HTML</li>
+         <li>In practice, much worse</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>XML in the browser</h3>
+       <ul>
+         <li>Don't bother.
+         <ul>
+           <li>The browsers vendors aren't interested.</li>
+         </ul>
+         <li>Use a tool designed for it, such as Saxon-CE</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>Conclusions</h3>
       <ul>
-        <li>blah</li>
-        <li>more blah</li>
+        <li>Characterizing the relationship between the XML and HTML communities
+is largely a matter of perspective</li>
+        <li>Far enough away: they're nearly indistinguishable</li>
+        <li>Close enough: there's almost no common ground</li>
       </ul>
     </section>
 
