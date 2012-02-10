@@ -117,7 +117,16 @@ pre.prettyprint {
     margin: 20px;
     padding:    10px;
     border: 1px solid #888;
-    font-size:  20px;
+    font-size: 20px;
+}
+
+pre {
+    margin-left: 2em;
+    font-size: 25px;
+}
+
+ul ul {
+    margin-left:    40px;
 }
 
 /* Specify class=linenums on a pre to get line numbering */

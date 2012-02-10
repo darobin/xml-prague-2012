@@ -7,36 +7,30 @@
     <link rel='stylesheet' href='../presentations/dzslides.css' media='all'/>
   </head>
   <body>
-
-    <!-- this is the title slide -->
     <section>
-      <h1>XML and HTML Cross-Pollination: A Bridge Too Far?</h1>
+      <h1 style='margin-top: 1em'>XML and HTML<br/>Cross-Pollination:<br/>A Bridge Too Far?</h1>
       <footer>
         <strong>XML Prague</strong><br/>
         2012-02-11<br/>
-        Robin Berjon &amp; Norman Walsh
+        Robin Berjon (@robinberjon) &amp; Norman Walsh (@ndw)
       </footer>
     </section>
 
-    <!--
-      slides with images (4x3 ratio) that cover the whole screen are like this
-      you can use a <details> element and it will show its content in the presenter
-      view (which can be triggered by opening "onstage.html" in ../presentations)
-    -->
     <section>
-      <img src='xxx.jpg' class='fs'/>
-      <details>
-        <p>
-          Blah
-        </p>
-      </details>
+      <h2>HTML/XML Task Force</h2>
     </section>
 
-    <!-- regular content slide (can use incremental bullets, and things other than bullets too) -->
+    <section>
+      <h3>Cross-Pollination</h3>
+       <ul>
+         <li>Forget about your angle brackets</li>
+         <li>Look at the ideas</li>
+       </ul>
+    </section>
 
     <section>
       <h3>XML in the browser</h3>
-      <pre style="font-size: 25px; margin-left: 2em;">&lt;?xml-stylesheet href="xmltest.css"?>
+      <pre>&lt;?xml-stylesheet href="xmltest.css"?>
 &lt;doc>
   &lt;title>Title&lt;/title>
   &lt;para xml:id="test">Testing.&lt;/para>
@@ -47,27 +41,26 @@
       <h3>XML in the browser</h3>
        <ul>
          <li>Browser reads XML, renders with CSS</li>
-         <li>Works today, mostly:
+         <li>Works today, mostly:</li>
          <ul>
+           <li>Styling a complete vocabulary not so hard</li>
            <li>Images are theoretically possible</li>
          </ul>
-         </li>
        </ul>
     </section>
 
     <section>
       <h3>XML in the browser: Scripting</h3>
-<pre style="font-size: 25px; margin-left: 2em;">&lt;?xml-stylesheet href="xmltest.css"?>
+<pre>&lt;?xml-stylesheet href="xmltest.css"?>
 &lt;doc>
 &lt;title>Title&lt;/title>
 &lt;para xml:id="test">Testing.&lt;/para>
 
 &lt;script xmlns="http://www.w3.org/1999/xhtml">
 //&lt;![CDATA[
-var text = document.createTextNode("Script testing");
-var para = document.getElementsByTagName("para")[0];
-para.removeChild(para.firstChild)
-para.appendChild(text);
+var txt = document.createTextNode("Script test");
+var p = document.getElementsByTagName("para")[0];
+p.replaceChild(text, p.firstChild)
 //]]>&lt;/script>
 &lt;/doc></pre>
     </section>
@@ -77,14 +70,16 @@ para.appendChild(text);
        <ul>
          <li>HTML scripts are interpreted</li>
          <li>Scripts can access the XML DOM</li>
+         <li>The case for <code>xml-script</code> (or lack thereof)</li>
        </ul>
     </section>
 
     <section>
       <h3>XML in the browser: Linking</h3>
        <ul>
-         <li>Very vocabulary dependent (XLink not widely adopted, <em>sigh</em>)</li>
-         <li>XLink support is plausible with CSS and JavaScript</li>
+         <li>Very vocabulary dependent (XLink not widely adopted, Norm: <em>sigh</em>, Robin: <em>yay!</em>)</li>
+         <li>Linking can be emulated with script</li>
+         <li>Declarative links could be useful</li>
        </ul>
     </section>
 
@@ -99,12 +94,118 @@ para.appendChild(text);
     <section>
       <h3>XML in the browser</h3>
        <ul>
-         <li>Don't bother.
+         <li>Don't bother.</li>
          <ul>
            <li>The browsers vendors aren't interested.</li>
+           <li>Most developers aren't interested.</li>
          </ul>
          <li>Use a tool designed for it, such as Saxon-CE</li>
        </ul>
+    </section>
+
+    <section>
+      <h3>XPointer and CSS</h3>
+       <ul>
+         <li>XPointer can point inside documents</li>
+         <li>CSS can select nodes inside documents</li>
+         <li>Maybe the two can meet?</li>
+         <li>http://simonstl.com/articles/cssFragID.html</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>XPointer and CSS: Examples</h3>
+       <ul>
+         <li>http://example.org/foo/#css(.rfc2119)</li>
+         <li>http://example.org/foo/#css(section>h2)</li>
+         <li>http://example.org/foo/#css(article p:nth-child(3))</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>Implementing FO</h3>
+       <ul>
+         <li>pdf.js supports PDF directly in the browser</li>
+         <li>It has helped improve browsers in finding gaps</li>
+         <li>What's missing to implement FO?</li>
+         <li>It would be much nicer than using PDF...</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>Compilation to JS</h3>
+       <ul>
+         <li>Saxon Client Edition</li>
+         <li>XML Pipeline Processing in the Browser</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>SVG's Switch</h3>
+       <ul>
+         <li>SVG was absorbed into HTML (including syntax-wise)</li>
+         <li>What are the results?</li>
+         <li>Should it go further?</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>Distributed Extensibility</h3>
+       <ul>
+         <li>XML had potential for DE that was almost never used</li>
+         <li>HTML is blamed for not having DE</li>
+         <li>But is it true?</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>JS-SLT</h3>
+       <ul>
+         <li>Javascript has proven powerful at markup transformation</li>
+         <li>So has XSLT, with a seductive model</li>
+         <li>Could we marry these two?</li>
+       </ul>
+    </section>
+
+    <section>
+      <h3>JS-SLT: Code</h3>
+      <pre>var sheet = require("jaspilite").sheet()
+,   $     = require("jquery");
+sheet.template("section", function () {
+    return $(this)
+              .apply()
+              .wrapIn("&lt;div class='section'/>");
+});
+var $out = sheet.run("my-document.html");
+console.log($out.html());
+      </pre>
+    </section>
+
+    <section>
+      <h3>Schemata on the Web</h3>
+       <ul>
+         <li>HTML has a limited validation ecosystem</li>
+         <li>But it could be useful at times</li>
+         <li>We always need more schema languages</li>
+       </ul>
+    </section>
+
+    <section>
+      <h2>CSS Schema!</h2>
+    </section>
+
+    <section>
+      <h3>CSS Schema: Code</h3>
+      <pre>@rule head {
+  title {
+      assert:  "Page does not have a title.";
+  }
+}
+@rule body {
+  :scope > div.std-top {
+      assert:   "Missing page top component.";
+  }
+}</pre>
     </section>
 
     <section>
@@ -116,10 +217,18 @@ is largely a matter of perspective</li>
         <li>Close enough: there's almost no common ground</li>
       </ul>
     </section>
-
-    <!-- slide with just big text in the middle -->
     <section>
-      <h2>DocBook Rocks!</h2>
+      <h3>Conclusions (2)</h3>
+      <ul>
+        <li>Forget: XML on the Web</li>
+        <li>Embrace: XML's good ideas on the Web</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Questions?</h2>
+    </section>
+    <section>
+      <h2>Thanks!</h2>
     </section>
   </body>
   <script src='../presentations/dzutils.js'></script>
